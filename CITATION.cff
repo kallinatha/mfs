@@ -9,7 +9,7 @@ authors:
   - family-names: "Talawar"
     given-names: "Basavaraj"
     affiliation: "National Institute of Technology Karnataka"
-repository-code: "https://github.com/REPLACE_WITH_OWNER/mfs"
+repository-code: "https://github.com/kallinatha/mfs"
 license: MIT
 preferred-citation:
   type: article

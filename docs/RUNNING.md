@@ -3,7 +3,7 @@
 Two commands. The first builds the tools, the second does the study.
 
 ```bash
-git clone https://github.com/REPLACE_WITH_OWNER/mfs.git && cd mfs
+git clone https://github.com/kallinatha/mfs.git && cd mfs
 ./setup.sh                      # ~5 min: builds bundled DESTINY, fetches NVMExplorer
 ./run_all.sh --smoke            # ~15 min: proves the pipeline on a bounded slice
 ./run_all.sh                    # the real thing

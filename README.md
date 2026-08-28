@@ -11,7 +11,7 @@ trace set, or a different wear-management policy without touching the
 framework itself (see "Using this for other work" below).
 
 ```bash
-git clone https://github.com/REPLACE_WITH_OWNER/mfs.git && cd mfs
+git clone https://github.com/kallinatha/mfs.git && cd mfs
 ./setup.sh                # builds bundled DESTINY, fetches NVMExplorer  (~5 min)
 ./run_all.sh --smoke      # proves the pipeline on a bounded slice       (~15 min)
 ./run_all.sh              # the study
