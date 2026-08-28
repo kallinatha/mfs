@@ -153,8 +153,7 @@ submodules would make this repository unreviewable). Anything under
 
 ## Known limits
 
-Stated here rather than discovered in review. Re-implementations are not author
-artefacts. Serialized array time assumes zero memory-level parallelism — use
+Re-implementations are not author artefacts. Serialized array time assumes zero memory-level parallelism — use
 stage 5 for anything performance-related. Leakage and area scale linearly with
 way count in the join. Damage-model parameters are templates. Replay starts from
 an empty cache. Not done: full factorial decomposition, Monte Carlo over
