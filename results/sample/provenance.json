@@ -1,0 +1,27 @@
+{
+  "config": "/home/claude/mfs2/config/sample.json",
+  "config_sha256": "d847a207eaa0cadff544aee4dc0153788cc523175f90adfb23bfa63059c830eb",
+  "cxx": "c++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+  "numpy": "2.4.4",
+  "pandas": "3.0.2",
+  "platform": "Linux-6.18.5-fc-v20-x86_64-with-glibc2.39",
+  "prepared_traces": [
+    {
+      "clock_hz": 2000000000.0,
+      "mix": "example_trace",
+      "records": 18000,
+      "source_region_sha256": "37ea214b6218bce00fa2ad086d572e9febf6c445e365d90eb2938e7fc3a7373f"
+    }
+  ],
+  "python": "3.11.15 (main, Mar  3 2026, 09:26:23) [GCC 13.3.0]",
+  "tools": {
+    "DESTINY": {
+      "git_commit": "276c0ec3e9b8c00b4c95ae8f60b377f4c6faa514",
+      "path": "/home/claude/destiny_v2"
+    },
+    "NVMExplorer": {
+      "git_commit": "16eb289096b69bbe0b88d51cfabd7927c5f9349b",
+      "path": "/home/claude/nvmexplorer"
+    }
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "config": "/home/kallinath/mfs-revision/config/suscom_ten_mixes.json",
+  "config_sha256": "a445c2b084a71c478c753063f1594491a54d35e86b583aad535c3695d3319731",
+  "cxx": "c++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+  "numpy": "2.5.1",
+  "pandas": "3.0.3",
+  "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.39",
+  "prepared_traces": [
+    {
+      "clock_hz": 2000000000.0,
+      "mix": "GemsFDTDomnetpproms17leslie3dBaseHybrid_trace",
+      "records": 25489916,
+      "source_region_sha256": "1f61f98c9300a5db6d2ea82f83d05f31f87451deb0cfba61517b183ffe679d12"
+    },
+    {
+      "clock_hz": 2000000000.0,
+      "mix": "cactuBSSN17dealIIlibquantumxalancbmkBaseHybrid_trace",
+      "records": 37354973,
+      "source_region_sha256": "65c8bbfca5e990adb2b6cd2ebfc84c4e038e21fd9a14976baa37c6b35ca3c618"
+    },
+    {
+      "clock_hz": 2000000000.0,
+      "mix": "gobmkmilcmcf17lbm17BaseHybrid_trace",
+      "records": 19428529,
+      "source_region_sha256": "5fa0354ad867676dc32ed367a895f114b0f5f168cd1d0e90e88d4049b4135388"
+    },
+    {
+      "clock_hz": 2000000000.0,
+      "mix": "hmmerbzip2wrfroms17BaseHybrid_trace",
+      "records": 29079456,
+      "source_region_sha256": "f12c0e5a4280bcb961e3b0f506c24ece90a57cf325649b45596043370897c798"
+    },
+    {
+      "clock_hz": 2000000000.0,
+      "mix": "lbm17xz17GemsFDTDwrfBaseHybrid_trace",
+      "records": 15567346,
+      "source_region_sha256": "54f5fa58ba5b2425fe1bd6ee97de3bcf4670bd9c10d848dd91ded59e6775fe69"
+    },
+    {
+      "clock_hz": 2000000000.0,
+      "mix": "omnetppastarmilclibquantumBaseHybrid_trace",
+      "records": 19705383,
+      "source_region_sha256": "5f59b0e4e6099731c30b6e51c75465218155289fa99b9cab3cc0e439cba863e1"
+    },
+    {
+      "clock_hz": 2000000000.0,
+      "mix": "xalancbmkleslie3dbwaves17mcf17BaseHybrid_trace",
+      "records": 24461634,
+      "source_region_sha256": "66ec2cc62eddbf1716d99769adb28a2a7df42a834a3dbf9bc135af437f9acf6c"
+    },
+    {
+      "clock_hz": 2000000000.0,
+      "mix": "xz17astarbwaves17soplexBaseHybrid_trace",
+      "records": 12755372,
+      "source_region_sha256": "8ca1c326f586902c5d3e3370090a014b619ed0e82364782fa21c248b4b015b95"
+    },
+    {
+      "clock_hz": 2000000000.0,
+      "mix": "zeusmpcactuBSSN17hmmersoplexBaseHybrid_trace",
+      "records": 34505597,
+      "source_region_sha256": "35f939778fc2e11d46e7bb16280b1bb7f93fdeb035f62408949b25f4f0161e7f"
+    },
+    {
+      "clock_hz": 2000000000.0,
+      "mix": "zeusmpgobmkdealIIbzip2BaseHybrid_trace",
+      "records": 26408944,
+      "source_region_sha256": "7aa05d90de8b2ec70b2c040e70ba6e6b4baf9656a9db867c9b446cf7d196b87f"
+    }
+  ],
+  "python": "3.12.3 (main, Jun 19 2026, 12:46:00) [GCC 13.3.0]",
+  "tools": {
+    "DESTINY": {
+      "git_commit": "unavailable: Command '['git', '-C', '/home/kallinath/mfs-revision/tools/destiny_v2', 'rev-parse', 'HEAD']' returned non-zero exit status 128.",
+      "path": "/home/kallinath/mfs-revision/tools/destiny_v2"
+    },
+    "HyCSim": {
+      "git_commit": "unavailable: Command '['git', '-C', '/home/kallinath/mfs-revision/tools/hycsim_reference', 'rev-parse', 'HEAD']' returned non-zero exit status 128.",
+      "path": "/home/kallinath/mfs-revision/tools/hycsim_reference"
+    },
+    "NVMExplorer": {
+      "git_commit": "16eb289096b69bbe0b88d51cfabd7927c5f9349b",
+      "path": "/home/kallinath/mfs-revision/tools/NVMExplorer"
+    }
+  }
+}

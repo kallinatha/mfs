@@ -1,0 +1,80 @@
+{
+  "experiment": {
+    "exp_name": "mfs_trace_arrays",
+    "cell_type": [
+      "SRAM",
+      "STT",
+      "PCM"
+    ],
+    "process_node": 45,
+    "opt_target": [
+      "ReadEDP"
+    ],
+    "word_width": 64,
+    "capacity": [
+      1
+    ],
+    "bits_per_cell": [
+      1
+    ],
+    "traffic": [],
+    "nvsim_path": "/home/claude/nvmexplorer/nvmexplorer_src/nvsim_src/nvsim",
+    "output_path": "/home/claude/mfs2/results/sample/nvmexplorer_model",
+    "custom_cells": "True"
+  },
+  "custom_cells": [
+    {
+      "cell_type": "SRAM",
+      "name": "SRAM_6T_05a0cf1a",
+      "cell_size_F2": 146
+    },
+    {
+      "cell_type": "STT",
+      "name": "STT_baseline_65f80fa1",
+      "cell_size_F2": 40,
+      "r_on": 3000,
+      "r_off": 6000,
+      "read_voltage": 0.25,
+      "read_power": 30,
+      "set_pulse": 10,
+      "reset_pulse": 10,
+      "set_energy": 1.0,
+      "reset_energy": 1.0
+    },
+    {
+      "cell_type": "STT",
+      "name": "SOT_12F2_30adef16",
+      "cell_size_F2": 12,
+      "cell_aspect_ratio": 1.0,
+      "access_CMOS_width": 2.5,
+      "r_on": 5000,
+      "r_off": 10000,
+      "read_voltage": 0.25,
+      "read_power": 30,
+      "set_pulse": 0.266,
+      "reset_pulse": 0.266,
+      "set_energy": 0.1,
+      "reset_energy": 0.1
+    },
+    {
+      "cell_type": "STT",
+      "name": "SOT_24F2_f25b7603",
+      "cell_size_F2": 24,
+      "cell_aspect_ratio": 2.0,
+      "access_CMOS_width": 2.5,
+      "r_on": 5000,
+      "r_off": 10000,
+      "read_voltage": 0.25,
+      "read_power": 30,
+      "set_pulse": 0.266,
+      "reset_pulse": 0.266,
+      "set_energy": 0.1,
+      "reset_energy": 0.1
+    },
+    {
+      "cell_type": "PCM",
+      "name": "PCM_baseline_4366990e",
+      "cell_size_F2": 25
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "nvm_cell": "PCM_baseline",
+  "sram_cell": "SRAM_6T",
+  "destiny_nvm_tech": "PCM",
+  "destiny_sram_tech": "SRAM",
+  "endurance_grid_writes_per_cell": [
+    100000000.0
+  ],
+  "leakage_scales_linearly_with_ways": true,
+  "way_fractions_source": "nvm_ways / sram_ways columns of the lifetime CSV",
+  "serialized_array_time": "sum of per-access array latency; assumes zero memory-level parallelism, so it is an upper bound and is not a substitute for simulated IPC",
+  "leakage_energy": "array leakage power x measured duration; identical for every policy on the same array, therefore not a policy-discriminating metric",
+  "rejected_rows": []
+}

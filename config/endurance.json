@@ -1,0 +1,50 @@
+{
+  "_comment": [
+    "Write-endurance budgets, per technology, each with the citation that fixes it.",
+    "Years-to-failure scales LINEARLY with these numbers, so an uncited endurance",
+    "figure is the single easiest way to make a lifetime claim unfalsifiable. Every",
+    "value here is traceable, and where the literature disagrees the disagreement is",
+    "swept rather than resolved by choice.",
+    "",
+    "Read `sot_mram.sweep` as the headline: SOT endurance is NOT a known constant.",
+    "Report the whole band."
+  ],
+
+  "stt_mram": {
+    "value": 4e12,
+    "sweep": [4e12],
+    "basis": "The architecture community's standard figure. Mittal, Vetter & Li, LastingNVCache (2014): 'write endurance value ... 4 x 10^12 and 10^8, respectively' for STT-RAM and PCM. Reused verbatim by Agarwal, PhD thesis, IIT Guwahati 2020, Sec. 2.2.2: 'considering the write endurance value of STT to 4 x 10^12 writes (considerably large)'. Jokar et al., Sequoia, IEEE TVLSI 24(3), 2016, independently assume ~10^12.",
+    "caveat": "Agarwal's very next sentence, same section: 'Intel report the write endurance value of STT to 10^6 write cycles'. That is a SIX ORDER OF MAGNITUDE gap between the community assumption and the shipped-product figure. 4e12 is defensible only as the community-comparable point, and any absolute years-to-failure claim built on it must say so. The 1e6 point is included in `pessimistic` for exactly that reason.",
+    "pessimistic": 1e6,
+    "pessimistic_basis": "Intel, via Agarwal thesis Sec. 2.2.2 refs [44,45]. Shipped-product rating, not a research device."
+  },
+
+  "sot_mram": {
+    "value": 1e15,
+    "sweep": [1e12, 1e13, 1e14, 1e15],
+    "basis": "Not a settled number, which is why it is swept over four decades. Upper anchor: imec press release, 13 December 2023, extremely scaled SOT-MRAM at ~50 nm critical dimension, sub-100 fJ/bit switching: '>10^15 program/erase cycles', with the explicit statement that they 'experimentally validated our assumption that SOT-MRAM cells can have unlimited endurance'. Lower anchor: the STT-class ~10^12 figure, on the argument that a SOT device sharing an MTJ stack inherits its tunnel-barrier wear-out.",
+    "caveat": "The imec figure is a MEASUREMENT FLOOR, not a measured failure point - testing stopped at 10^15 without the devices failing. It is therefore a lower bound on the true endurance and an upper bound on what may honestly be claimed. Reporting a single SOT lifetime number anywhere in the paper is indefensible; report the band and state which decade each conclusion survives.",
+    "note": "SOT's endurance argument is structural, not just numerical: the write current passes through the heavy-metal track rather than the tunnel barrier, so the barrier does not see the switching stress that limits STT. That is the mechanism behind the imec result and is the sentence to write, rather than quoting 10^15 as a fact."
+  },
+
+  "pcm": {
+    "value": 1e8,
+    "sweep": [1e8],
+    "basis": "Mittal, Vetter & Li, LastingNVCache (2014), same sentence as the STT figure: '4 x 10^12 and 10^8, respectively'. Agarwal thesis Table 2.3 gives >10^8 for PCM and 10^5-10^11 for ReRAM.",
+    "caveat": "PCM is excluded from this study on write latency (301 ns in our DESTINY sweep; 40-150 ns and >6000 pJ at 512 kB in Singh et al. 2020 Table 1), not on endurance. The endurance figure is carried so the exclusion can be quantified rather than asserted."
+  },
+
+  "sram": {
+    "value": 1e16,
+    "sweep": [1e16],
+    "basis": "Treated as effectively unlimited. Mittal & Vetter, AYUSH, MASCOTS 2015: 'the write endurance of SRAM is more than 10^15'. Agarwal thesis Table 2.3: '>10^15'.",
+    "caveat": "SRAM ways are not wear-limited in this study and are excluded from every peak-wear metric. This entry exists only so the hybrid array's SRAM partition has a declared budget rather than an implicit infinity."
+  },
+
+  "reram": {
+    "value": 1e11,
+    "sweep": [1e8, 1e11],
+    "basis": "Mittal & Vetter, AYUSH, MASCOTS 2015: 'this value for ReRAM is only 10^11'. Agarwal thesis: '10^5 to 10^11 writes'. Not used in the main comparison; retained for completeness.",
+    "caveat": "A six-decade published range. Do not quote a ReRAM lifetime from this."
+  }
+}

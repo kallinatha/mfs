@@ -1,0 +1,40 @@
+{
+  "tools": {
+    "destiny_dir": "${DESTINY_DIR}",
+    "nvmexplorer_dir": "${NVMEXPLORER_DIR}",
+    "hycsim_dir": "${HYCSIM_DIR}"
+  },
+  "traces": {
+    "raw_dir": "/EDIT/absolute/path/to/ten/raw/mixes",
+    "prepared_dir": "/EDIT/absolute/path/to/prepared/mixes",
+    "pattern": "*.txt",
+    "clock_hz": 2000000000.0,
+    "prepare_workers": 2,
+    "limit": 0
+  },
+  "experiment": {
+    "size_mb": 16,
+    "expected_mixes": 10,
+    "process_node_nm": 45,
+    "destiny_preset": "paper",
+    "destiny_workers": 2,
+    "nvm_opt_target": "ReadEDP,WriteEDP",
+    "hycsim_workers": 1,
+    "tune_accesses": 6000000,
+    "evaluation_region": "suffix",
+    "hit_tolerance": 0.005,
+    "min_nvm_share": 0.25,
+    "schemes": [
+      "unmanaged", "lru-hybrid", "psc", "vro", "psc-vro",
+      "i2wap", "equalchance", "startgap", "sequoia", "swwr", "dwwr",
+    "psc-vro-rank"
+    ],
+    "nvm_cell": "SOT_12F2",
+    "sram_cell": "SRAM_6T",
+    "endurance_writes": 1000000000000.0
+  },
+  "paths": {
+    "results_dir": "/EDIT/absolute/path/to/results",
+    "nvm_output_dir": "/EDIT/absolute/path/to/nvmexplorer-model-output"
+  }
+}

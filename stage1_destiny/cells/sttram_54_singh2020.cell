@@ -1,0 +1,42 @@
+// STT-MRAM, calibrated to published NVSim cell parameters.
+//
+// Source: I. Singh, B. Raj, M. Khosla, B. K. Kaushik, "Comparative Analysis of
+// Spintronic Memories for Low Power on-chip Caches", SPIN 10(4):2050027, 2020.
+// DOI 10.1142/S2010324720500277. Table 2, 22 nm, 300 K.
+//
+// This is the competitor's *citable* operating point, and it matters because
+// the comparison hinges on it. DESTINY v2 ships an STT cell declaring 6 F^2
+// with an 8.5 F access transistor, which cannot physically fit - a 8.5 F wide
+// device does not go inside a 6 F^2 footprint. Running only that point lets a
+// reviewer say the competitor was handicapped. Singh et al. independently give
+// 54 F^2 with an 8 F access transistor, which is self-consistent and close to
+// the 40 F^2 hand-corrected point already in this directory.
+//
+// Report all three STT points (6, 40, 54) and say which is which. The write
+// asymmetry is the stable finding across every one of them: 10 ns write pulse
+// and 80 uA write current, against SOT's 1 ns and 54.02 uA.
+
+-MemCellType: MRAM
+-CellArea (F^2): 54
+-CellAspectRatio: 0.54
+-ResistanceOn (ohm): 3000
+-ResistanceOff (ohm): 6000
+-ReadMode: voltage
+-ReadCurrent (uA): 66.67          // SOLVED, not from Singh et al. At their 12.5 uA the sense
+                                // differential is only 12.5uA x (6000-3000) = 37.5 mV, and
+                                // DESTINY cannot find a working precharge point ("Read current
+                                // too large or too small"). 66.67 uA is the largest current
+                                // under a 0.2 V read-disturb ceiling; margin 200 mV.
+-ReadPulse (ns): 0.221          // NOT from Singh et al.; DESTINY sample value
+-MinSenseVoltage (mV): 25
+-ResetMode: current
+-ResetCurrent (uA): 80
+-ResetPulse (ns): 10.0
+-ResetEnergy (pJ): 0.1          // NOT from Singh et al.; DESTINY sample value
+-SetMode: current
+-SetCurrent (uA): 80
+-SetPulse (ns): 10.0
+-SetEnergy (pJ): 0.1            // NOT from Singh et al.; DESTINY sample value
+-AccessType: CMOS
+-VoltageDropAccessDevice (V): 0.15
+-AccessCMOSWidth (F): 8.0

@@ -1,0 +1,47 @@
+{
+  "tools": {
+    "destiny_dir": "${DESTINY_DIR}",
+    "nvmexplorer_dir": "${NVMEXPLORER_DIR}",
+    "hycsim_dir": ""
+  },
+  "traces": {
+    "raw_dir": "traces/sample_raw",
+    "prepared_dir": "traces/sample_prepared",
+    "pattern": "*.txt",
+    "clock_hz": 2000000000.0,
+    "prepare_workers": 1,
+    "force": true,
+    "limit": 0
+  },
+  "experiment": {
+    "size_mb": 1,
+    "expected_mixes": 1,
+    "process_node_nm": 45,
+    "destiny_preset": "smoke",
+    "destiny_workers": 2,
+    "nvm_opt_target": "ReadEDP",
+    "hycsim_workers": 1,
+    "tune_accesses": 5000,
+    "evaluation_region": "suffix",
+    "hit_tolerance": 0.005,
+    "min_nvm_share": 0.25,
+    "schemes": [
+      "unmanaged",
+      "lru-hybrid",
+      "psc",
+      "vro",
+      "psc-vro"
+    ],
+    "nvm_cell": "SOT_12F2",
+    "sram_cell": "SRAM_6T",
+    "endurance_writes": 1000000000000.0
+  },
+  "sample": {
+    "events": 20000,
+    "warmup": 2000
+  },
+  "paths": {
+    "results_dir": "results/sample",
+    "nvm_output_dir": "results/sample/nvmexplorer_model"
+  }
+}

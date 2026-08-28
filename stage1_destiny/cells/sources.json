@@ -1,0 +1,2652 @@
+[
+ {
+  "id": "sot_liao2020_aupt_2t1mtj",
+  "citation": "Yu-Ching Liao, Chenyun Pan, Azad Naeemi, \"Benchmarking and Optimization of Spintronic Memory Arrays,\" IEEE Journal on Exploratory Solid-State Computational Devices and Circuits, 6(1):9-17, June 2020",
+  "doi": "10.1109/JXCDC.2020.2999270",
+  "technology": "SOT-MRAM (in-plane free layer, Au0.25Pt0.75 SOT channel)",
+  "process_node_nm": 30,
+  "temperature_K": 300,
+  "cell_levels": "SLC",
+  "device_geometry": "Verbatim: free ferromagnet 'Size of FM 15x60x2 (IMA)' nm (Table 2); SOT channel thickness 4 nm; 'the ratio between the length and the width of the ferromagnet must be increased to four in order to maintain a sufficient energy barrier of Eb ~ 40 kT'; thermal barrier Eb = 40 kT; Ms = 1.2e6 A/m; Ku = 0. Transistor count: 'For the SOT-MRAM, since the READ and the WRITE operations are separated, two transistors are needed to avoid sneak currents. The layout area unavoidably increases to 20 F^2 in the case of one WRITE access transistor.' -> 2T1MTJ (1 write + 1 read transistor). Layout in Fig. 1(b) is 4F wide x 5F tall. A 3T1MTJ variant (two write transistors) is 4F x 7F = 28 F^2 and is reported to have worse write EDP.",
+  "fields": {
+   "MemCellType": {
+    "value": "MRAM",
+    "unit": null,
+    "provenance": "title/abstract",
+    "kind": "reported"
+   },
+   "MemCellLevel": {
+    "value": "SLC",
+    "unit": null,
+    "provenance": "no MLC discussion anywhere in paper",
+    "kind": "assumed"
+   },
+   "ProcessNode (nm)": {
+    "value": 30,
+    "unit": "nm",
+    "provenance": "Sec. II: 'F = 30 nm as the half-metal pitch in the 15-nm CMOS technology'. DESTINY's -ProcessNode sets F directly, so it must be 30, NOT 15. Verified against Fig. 9(c): SOT bar = 0.018 um^2 = 20 F^2 x (30 nm)^2 = 18000 nm^2.",
+    "kind": "reported"
+   },
+   "Temperature (K)": {
+    "value": 300,
+    "unit": "K",
+    "provenance": "Sec. IV-C: 'we fit the sample data at each WRITE voltage under thermal noise (T = 300 K)'",
+    "kind": "reported"
+   },
+   "CellArea (F^2)": {
+    "value": 20,
+    "unit": "F^2",
+    "provenance": "Table 4, row 'Area (F^2)', column SOT; also stated in Sec. II text and abstract",
+    "kind": "reported"
+   },
+   "CellAspectRatio": {
+    "value": 1.25,
+    "unit": "height/width",
+    "provenance": "Fig. 1(b) SOT-MRAM layout annotated 4F (x) x 5F (y) = 20 F^2; aspect = 5F/4F = 1.25",
+    "kind": "derived"
+   },
+   "ReadMode": {
+    "value": "voltage",
+    "unit": null,
+    "provenance": "Sec. III-A: E_READ = 2*V_READ*I_bias*t_READ, voltage-biased MTJ with current-latch sense amplifier",
+    "kind": "reported"
+   },
+   "ReadVoltage (V)": {
+    "value": 0.125,
+    "unit": "V",
+    "provenance": "Sec. II: 'the typical READ voltage of an MTJ (~0.1-0.15 V)'; midpoint of the stated 0.1-0.15 V range",
+    "kind": "derived"
+   },
+   "ReadCurrent (uA)": {
+    "value": null,
+    "unit": "uA",
+    "provenance": "Sec. IV-C only says 'The READ current is typically on the order of a few uA' - no number given",
+    "kind": "reported"
+   },
+   "MinSenseVoltage (mV)": {
+    "value": 50,
+    "unit": "mV",
+    "provenance": "Sec. III-A: 'the offset voltages of the sense amplifier are chosen to be 50 mV'",
+    "kind": "reported"
+   },
+   "SetCurrent (uA)": {
+    "value": [
+     31.2,
+     93.7
+    ],
+    "unit": "uA",
+    "provenance": "DERIVED, chain of 3 steps - treat with suspicion. Fig. 6(c) reports spin current I_S = 25-75 uA. Eq. (1): I_S/I_C = (W_FM/t_SO)*theta_SH = (15 nm / 4 nm) x 0.35 = 1.3125 for Au0.25Pt0.75 (theta_SH = 0.35 from Table 3). So I_C = I_S/1.3125 = 19.05-57.14 uA. Shunting: I_C,tot = I_C x (1+s) with s = 0.64 (Table 3) -> 19.05x1.64 = 31.2 uA and 57.14x1.64 = 93.7 uA.",
+    "kind": "derived"
+   },
+   "ResetCurrent (uA)": {
+    "value": [
+     31.2,
+     93.7
+    ],
+    "unit": "uA",
+    "provenance": "Same as SetCurrent. The paper reports no directional asymmetry for SOT switching; a single critical current applies to both P->AP and AP->P.",
+    "kind": "derived"
+   },
+   "AccessType": {
+    "value": "CMOS",
+    "unit": null,
+    "provenance": "Fig. 1(b): NMOS write access transistor (WWL) + NMOS read access transistor (RWL)",
+    "kind": "reported"
+   },
+   "AccessCMOSWidth (F)": {
+    "value": null,
+    "unit": "F",
+    "provenance": "Not stated for the SOT cell. Table 1 characterises transistors at W = 60 nm (= 2 F) giving R = 5 kohm and C = 60 aF, but does not say the SOT cell uses W = 60 nm.",
+    "kind": "reported"
+   }
+  },
+  "array_level_results": {
+   "tool": "HSPICE (READ) + OOMMF (magnet switching) + analytic array model; not NVSim/DESTINY",
+   "capacity": "256 x 128 bits (32 kbit) array including sense amplifiers, wire R and C",
+   "results": {
+    "total_write_access_energy_fJ": 15.13,
+    "total_write_access_time_ns": 1.39,
+    "total_read_access_energy_fJ": 3.22,
+    "total_read_access_time_ns": 0.32,
+    "provenance": "Table 4, column SOT (Au0.25Pt0.75 channel, optimal write voltage)"
+   },
+   "peer_rows_same_table": {
+    "SRAM": {
+     "area_F2": 120,
+     "Ewrite_fJ": 26.36,
+     "twrite_ns": 0.15,
+     "Eread_fJ": 4.93,
+     "tread_ns": 0.11
+    },
+    "STT": {
+     "area_F2": 16,
+     "Ewrite_fJ": 357.22,
+     "twrite_ns": 3.8,
+     "Eread_fJ": 6.15,
+     "tread_ns": 0.37
+    },
+    "VCEC": {
+     "area_F2": 12,
+     "Ewrite_fJ": 43.95,
+     "twrite_ns": 5.13,
+     "Eread_fJ": 1.78,
+     "tread_ns": 0.72
+    },
+    "ME": {
+     "area_F2": 12,
+     "Ewrite_fJ": 10.38,
+     "twrite_ns": 1.03,
+     "Eread_fJ": 2.99,
+     "tread_ns": 0.28
+    }
+   }
+  },
+  "unmapped_parameters": [
+   {
+    "name": "SOT channel material comparison (Table 3)",
+    "value": "beta-W(4nm): sigma=3.85e5, s=0.96, theta_SH=0.2, sigma_s=7.7e4, I_write,nor=19.6, RI^2_write,nor=3.43e5, Iread/Iwrite=0.03 | AuxPt1-x(4nm): 1.2e6, 0.64, 0.35, 4.22e5, 9.37, 2.55e4, 0.06 | WTe2(4nm): 2.5e5, 1.48, 0.4, 1e5, 12.4, 2.07e5, 0.07 | BixSe1-x(4nm): 7.8e3, 47.34, 18.62, 1.45e5, 5.19, 1.08e6, 6.43 | BixSe1-x(8nm): 4.65e4, 3.97, 2.88, 1.34e5, 6.91, 1.67e5, 0.26 | BixSe1-x(16nm): 6.13e4, 1.51, 1.56, 9.56e4, 12.9, 2.27e5, 0.07 | Bi0.9Sb0.1(4nm): 2.5e5, 0.8, 52, 1.3e7, 0.09, 4.16, 4.49",
+    "provenance": "Table 3",
+    "why_unmapped": "Material-level figures of merit; DESTINY has no keys for conductivity, spin Hall angle, shunt ratio or normalised write current. They set SetCurrent, which is captured (derived) above."
+   },
+   {
+    "name": "Interconnect / circuit parameters (Table 1)",
+    "value": "CMOS driving voltage 1 V; transistor resistance @ W=60nm 5 kohm; transistor capacitance @ W=60nm 60 aF; interconnect capacitance 0.15 fF/um; BL resistance 20.5 ohm/um; WL resistance 53 ohm/um; magnet damping alpha 0.01; spin injection coefficient beta 0.5; sigma_CoFeB 7.4e5, sigma_Co 1.54e6, sigma_MnGa 5e5 ohm^-1 m^-1; P_SA 0.3 uW",
+    "provenance": "Table 1",
+    "why_unmapped": "Array/interconnect model inputs, not .cell keys (DESTINY takes these from its own wire and process models)."
+   },
+   {
+    "name": "SOT-MRAM external in-plane field requirement",
+    "value": "required (in-plane FM only)",
+    "provenance": "Sec. III-B-2: 'To switch a ferromagnet with PMA using spin-orbit torque, an external magnetic field is needed... here, we only consider SOT-MRAM with in-plane ferromagnets.'",
+    "why_unmapped": "No DESTINY key; but it means this cell is not field-free and is not directly comparable to Wu 2020's field-free 3T2SOT."
+   }
+  ],
+  "warnings": [
+   "NODE TRAP: the paper's F is 30 nm (half metal pitch) while the CMOS technology is called 15 nm. Writing -ProcessNode: 15 with -CellArea: 20 would make the cell 4x too small in absolute area. Use ProcessNode 30. Confirmed independently against Fig. 9(c) absolute areas (SOT bar = 0.018 um^2 = 20 x 30^2 nm^2).",
+   "No TMR, R_P or R_AP number appears anywhere in the paper. The MTJ resistance is taken from a measured RA-vs-oxide-thickness curve in Yuasa et al., Nat. Mater. 3:868 (2004) [ref 22] and swept; the chosen SOT oxide thickness is never printed either (1.3 nm is stated for STT, 1.6 nm for VCEC, 1.4 nm for ME). ResistanceOn/ResistanceOff cannot be filled from this paper.",
+   "Table 4 write/read energies and times are TOTAL ARRAY ACCESS values for a 256x128 array, not cell-intrinsic values. They are validation targets, not .cell inputs. In particular t_write = 1.39 ns = t_WL + t_BL + t_mag; the magnet switching time t_mag alone is never printed for the chosen design.",
+   "The abstract claims SOT-MRAM suffers 'a 25% larger cell area compared with STT-MRAM' - this compares 20 F^2 (SOT, 2T1MTJ) against 16 F^2 (STT, 2T1MTJ). Against STT 1T1MTJ (12 F^2) the SOT penalty is 67%, not 25%.",
+   "Bi0.9Sb0.1 row of Table 3 has theta_SH = 52 and I_read/I_write = 4.49; the paper itself rejects it on read-disturb grounds. Do not build a cell from that row."
+  ]
+ },
+ {
+  "id": "stt_liao2020_2t1mtj_reference",
+  "citation": "Yu-Ching Liao, Chenyun Pan, Azad Naeemi, \"Benchmarking and Optimization of Spintronic Memory Arrays,\" IEEE Journal on Exploratory Solid-State Computational Devices and Circuits, 6(1):9-17, June 2020",
+  "doi": "10.1109/JXCDC.2020.2999270",
+  "technology": "STT-MRAM (PMA), included as the in-paper area/energy reference for the SOT cell",
+  "process_node_nm": 30,
+  "temperature_K": 300,
+  "cell_levels": "SLC",
+  "device_geometry": "Verbatim Table 2: 'Size of FM 30x30x4.6 (PMA)', thermal barrier Eb = 60 kT, Ms = 3e5 A/m, Ku = 6e4 J/m^3. Two access transistors (2T1MTJ), layout Fig. 2(b) = 4F x 4F. 1T1MTJ variant = 4F x 3F = 12 F^2; 3T1MTJ = 4F x 7F = 28 F^2; 4T1MTJ = 4F x 9F = 36 F^2.",
+  "fields": {
+   "MemCellType": {
+    "value": "MRAM",
+    "unit": null,
+    "provenance": "Table 2",
+    "kind": "reported"
+   },
+   "ProcessNode (nm)": {
+    "value": 30,
+    "unit": "nm",
+    "provenance": "same F = 30 nm as the SOT cell",
+    "kind": "reported"
+   },
+   "Temperature (K)": {
+    "value": 300,
+    "unit": "K",
+    "provenance": "Sec. IV-C",
+    "kind": "reported"
+   },
+   "CellArea (F^2)": {
+    "value": 16,
+    "unit": "F^2",
+    "provenance": "Table 4, row 'Area (F^2)', column STT (2T1MTJ configuration)",
+    "kind": "reported"
+   },
+   "CellAspectRatio": {
+    "value": 1.0,
+    "unit": "height/width",
+    "provenance": "Fig. 2(b): 4F x 4F",
+    "kind": "derived"
+   },
+   "MinSenseVoltage (mV)": {
+    "value": 50,
+    "unit": "mV",
+    "provenance": "Sec. III-A",
+    "kind": "reported"
+   },
+   "AccessType": {
+    "value": "CMOS",
+    "unit": null,
+    "provenance": "Fig. 2(b)",
+    "kind": "reported"
+   }
+  },
+  "array_level_results": {
+   "tool": "HSPICE + macrospin model",
+   "capacity": "256 x 128 bits",
+   "results": {
+    "total_write_access_energy_fJ": 357.22,
+    "total_write_access_time_ns": 3.8,
+    "total_read_access_energy_fJ": 6.15,
+    "total_read_access_time_ns": 0.37,
+    "provenance": "Table 4, column STT"
+   }
+  },
+  "unmapped_parameters": [
+   {
+    "name": "Optimal MTJ oxide thickness (STT)",
+    "value": 1.3,
+    "provenance": "Abstract and Sec. IV-A: 'for STT-MRAM, the optimal oxide thickness is 1.3 nm'; below 1.3 nm read disturb appears",
+    "why_unmapped": "DESTINY has no oxide-thickness key; it would set ResistanceOn/Off via the RA product, which the paper never prints."
+   }
+  ],
+  "warnings": [
+   "Included only as the paper's own SOT-vs-STT area baseline. Same missing-resistance problem as the SOT entry."
+  ]
+ },
+ {
+  "id": "sot_seo2020_conventional_2t1sot_45nm",
+  "citation": "Yeongkyo Seo, Kon-Woo Kwon, \"Area-optimized design of SOT-MRAM,\" IEICE Electronics Express, 17(21):1-5, art. 20200314, 2020",
+  "doi": "10.1587/elex.17.20200314",
+  "technology": "SOT-MRAM (conventional 2-transistor cell, in-plane elliptical MTJ)",
+  "process_node_nm": 45,
+  "temperature_K": null,
+  "cell_levels": "SLC",
+  "device_geometry": "Verbatim Table I: free layer W_FL x L_FL x t_FL = 120 nm x 40 nm x 2 nm, footnote '1,2 MTJ FL has an elliptical shape'; heavy metal W_HM x L_HM x t_HM = 120 nm x 80 nm x 2 nm; HM resistivity 200 uohm.cm; spin Hall angle 0.3; oxide thickness 1.45 nm (vs 1.15 nm for the STT device). Transistor count: two - 'a read access transistor connected to the terminal T1 and a write access transistor connected to a terminal T2 of HM' (Fig. 2), i.e. 2T1SOT. Layout is 12 lambda (x) x 23 lambda (y) with lambda = 20 nm; 'the value 23 lambda ... is twice the y-dimension of STT-MRAM that uses a single-finger access transistor'. Spin current injection efficiency I_S/I_C = (A_MTJ/A_HM)*theta_SH = 471%.",
+  "fields": {
+   "MemCellType": {
+    "value": "MRAM",
+    "unit": null,
+    "provenance": "title",
+    "kind": "reported"
+   },
+   "MemCellLevel": {
+    "value": "SLC",
+    "unit": null,
+    "provenance": "no MLC discussion",
+    "kind": "assumed"
+   },
+   "ProcessNode (nm)": {
+    "value": 45,
+    "unit": "nm",
+    "provenance": "Abstract: 'Implemented with a 45-nm CMOS technology'; Sec. 4: 'a commercial 45nm transistor model is used'",
+    "kind": "reported"
+   },
+   "CellArea (F^2)": {
+    "value": 54.5,
+    "unit": "F^2",
+    "provenance": "Table II 'Bit-cell area' = 0.1104 um^2 = 110400 nm^2. At F = 45 nm: 110400 / 45^2 = 110400 / 2025 = 54.52 F^2. SEE WARNING - an F = 40 nm reading gives 69.0 F^2.",
+    "kind": "derived"
+   },
+   "ResistanceOn (ohm)": {
+    "value": null,
+    "unit": "ohm",
+    "provenance": "Sec. 4: 'The voltage dependent resistance of MTJ in AP and P states is calculated by the NEGF based electron transport simulation' - the resulting numbers are never printed",
+    "kind": "reported"
+   },
+   "ResistanceOff (ohm)": {
+    "value": null,
+    "unit": "ohm",
+    "provenance": "same - NEGF result never printed; no TMR value given either, so R_AP cannot be derived",
+    "kind": "reported"
+   },
+   "ReadMode": {
+    "value": "current",
+    "unit": null,
+    "provenance": "Sec. 2: 'For a read operation, SL is set to GND, BL is connected to the current source ... read current (IR) flows from BL to SL'",
+    "kind": "reported"
+   },
+   "ReadPower (uW)": {
+    "value": 9.26,
+    "unit": "uW",
+    "provenance": "Table II, row 'Read power', column SOT-MRAM",
+    "kind": "reported"
+   },
+   "SetMode": {
+    "value": "current",
+    "unit": null,
+    "provenance": "SOT write is current-driven through the HM; Table II reports both V_WRITE and a critical current",
+    "kind": "reported"
+   },
+   "SetCurrent (uA)": {
+    "value": 42,
+    "unit": "uA",
+    "provenance": "Table I, row 'Critical current (7ns)', column SOT device. The paper gives ONE critical current for the SOT device; it never distinguishes P->AP from AP->P.",
+    "kind": "reported"
+   },
+   "ResetCurrent (uA)": {
+    "value": 42,
+    "unit": "uA",
+    "provenance": "Same single value - see SetCurrent. Paper reports no SOT switching asymmetry.",
+    "kind": "reported"
+   },
+   "SetVoltage (V)": {
+    "value": 0.13,
+    "unit": "V",
+    "provenance": "Table II, row 'V_WRITE', column SOT-MRAM: +0.13 V",
+    "kind": "reported"
+   },
+   "ResetVoltage (V)": {
+    "value": 0.13,
+    "unit": "V",
+    "provenance": "Sec. 2: 'a logical value 0 can be written by applying opposite voltages, i.e., VW to SL and GND to BL' - same magnitude, reversed polarity",
+    "kind": "reported"
+   },
+   "SetPulse (ns)": {
+    "value": 7,
+    "unit": "ns",
+    "provenance": "Sec. 4: all three cells 'designed under identical conditions of 7ns switching time'",
+    "kind": "reported"
+   },
+   "ResetPulse (ns)": {
+    "value": 7,
+    "unit": "ns",
+    "provenance": "same",
+    "kind": "reported"
+   },
+   "SetEnergy (pJ)": {
+    "value": 0.048,
+    "unit": "pJ",
+    "provenance": "Table II write power 6.86 uW x 7 ns switching time = 6.86e-6 W x 7e-9 s = 4.80e-14 J = 48.0 fJ = 0.048 pJ. SEE WARNING - the averaging window for 'write power' is not defined in the paper.",
+    "kind": "derived"
+   },
+   "ResetEnergy (pJ)": {
+    "value": 0.048,
+    "unit": "pJ",
+    "provenance": "same arithmetic; write power is reported as a single value for the cell",
+    "kind": "derived"
+   },
+   "AccessType": {
+    "value": "CMOS",
+    "unit": null,
+    "provenance": "Fig. 2(a): NMOS read (RWL) + NMOS write (WWL) access transistors",
+    "kind": "reported"
+   },
+   "AccessCMOSWidth (F)": {
+    "value": 4.0,
+    "unit": "F",
+    "provenance": "Table II 'Transistor width' = 180 nm; at F = 45 nm, 180/45 = 4.0 F. (Paper's own layout grid: 180 nm = 9 lambda = 4.5 F if F = 2 lambda = 40 nm.)",
+    "kind": "derived"
+   }
+  },
+  "unmapped_parameters": [
+   {
+    "name": "Gilbert damping alpha",
+    "value": 0.0122,
+    "provenance": "Table I, SOT device column",
+    "why_unmapped": "LLGS input; no DESTINY key"
+   },
+   {
+    "name": "Saturation magnetisation Ms",
+    "value": "900e3 A/m",
+    "provenance": "Table I",
+    "why_unmapped": "LLGS input; no DESTINY key"
+   },
+   {
+    "name": "V_WWL (write word-line drive)",
+    "value": "+1 V",
+    "provenance": "Table II",
+    "why_unmapped": "Peripheral bias, not a cell key"
+   },
+   {
+    "name": "Read-disturb margin (IC-IR)/IC",
+    "value": "96 %",
+    "provenance": "Table II",
+    "why_unmapped": "Reliability metric, no DESTINY key. STT counterpart is 51%."
+   },
+   {
+    "name": "Write margin (IW-IC)/IC",
+    "value": "20 %",
+    "provenance": "Sec. 4 design condition",
+    "why_unmapped": "Implies actual write current = 1.2 x 42 = 50.4 uA if you want the applied rather than critical current."
+   }
+  ],
+  "warnings": [
+   "F AMBIGUITY, affects CellArea by 27%. The layout is drawn on a lambda grid with lambda = 20 nm (established twice: '20 lambda (= 400nm)' and '9 lambda (=180nm)'), and the paper defines 'lambda refers to half the minimum feature size', so the layout feature size is 2 lambda = 40 nm - not the 45 nm of the SPICE model. CellArea is 54.5 F^2 at F = 45 nm and 69.0 F^2 at F = 40 nm. Pick one and state it in the .cell comment.",
+   "No MTJ resistance and no TMR anywhere in the paper. ResistanceOn/ResistanceOff must come from another source; do not invent them.",
+   "Write/read POWER is reported, not energy. Converting to SetEnergy requires assuming the power is the average over the 7 ns switching window, which the paper does not state. Flagged as derived.",
+   "It is not explicit whether the 42 uA 'critical current' is the charge current in the HM or the spin current. Consistency check favours charge current: 42 uA through R_HM = rho*L/(W*t) = (2e-6 ohm.m x 80e-9)/(120e-9 x 2e-9) = 667 ohm gives a 28 mV HM drop, leaving ~102 mV across the 180 nm transistor at V_WRITE = 0.13 V, which is physically sensible. If 42 uA were the spin current, the charge current would be 42/4.71 = 8.9 uA and the implied transistor resistance would be ~14 kohm for a 180 nm 45 nm-node device, which is not.",
+   "Filename says 2017 but this is IEICE Elex vol. 17 no. 21, received Sept 2020, published Nov 2020. Cite as 2020."
+  ]
+ },
+ {
+  "id": "sot_seo2020_proposed_2t1sot_45nm",
+  "citation": "Yeongkyo Seo, Kon-Woo Kwon, \"Area-optimized design of SOT-MRAM,\" IEICE Electronics Express, 17(21):1-5, art. 20200314, 2020",
+  "doi": "10.1587/elex.17.20200314",
+  "technology": "SOT-MRAM (proposed cell: source line routed horizontally, SL permanently at GND, negative BL for writing '0')",
+  "process_node_nm": 45,
+  "temperature_K": null,
+  "cell_levels": "SLC",
+  "device_geometry": "Same MTJ/HM stack as the conventional cell (Table I): FL 120x40x2 nm elliptical, HM 120x80x2 nm, theta_SH 0.3, t_ox 1.45 nm. Still two access transistors (read + write), but SL is routed perpendicular to BL so only ONE vertical metal line is needed, relaxing the x-dimension from 12 lambda. Layout Fig. 6(c).",
+  "fields": {
+   "MemCellType": {
+    "value": "MRAM",
+    "unit": null,
+    "provenance": "title",
+    "kind": "reported"
+   },
+   "ProcessNode (nm)": {
+    "value": 45,
+    "unit": "nm",
+    "provenance": "Abstract",
+    "kind": "reported"
+   },
+   "CellArea (F^2)": {
+    "value": 31.8,
+    "unit": "F^2",
+    "provenance": "Table II 'Bit-cell area' = 0.0644 um^2 = 64400 nm^2; 64400 / 45^2 = 64400/2025 = 31.80 F^2. At F = 40 nm (2 lambda) it is 64400/1600 = 40.25 F^2.",
+    "kind": "derived"
+   },
+   "ReadMode": {
+    "value": "current",
+    "unit": null,
+    "provenance": "Sec. 2 / Fig. 4(b) biasing table",
+    "kind": "reported"
+   },
+   "ReadPower (uW)": {
+    "value": 9.08,
+    "unit": "uW",
+    "provenance": "Table II, 'Read power', Proposed MRAM column",
+    "kind": "reported"
+   },
+   "SetCurrent (uA)": {
+    "value": 42,
+    "unit": "uA",
+    "provenance": "Table I critical current at 7 ns applies to the same SOT device",
+    "kind": "reported"
+   },
+   "ResetCurrent (uA)": {
+    "value": 42,
+    "unit": "uA",
+    "provenance": "same",
+    "kind": "reported"
+   },
+   "SetVoltage (V)": {
+    "value": 0.95,
+    "unit": "V",
+    "provenance": "Table II, V_WRITE = +0.95 V (writing '1', BL positive)",
+    "kind": "reported"
+   },
+   "ResetVoltage (V)": {
+    "value": -0.24,
+    "unit": "V",
+    "provenance": "Table II, V_MINUS = -0.24 V (writing '0', BL driven negative). STRONGLY ASYMMETRIC bias - see warnings.",
+    "kind": "reported"
+   },
+   "SetPulse (ns)": {
+    "value": 7,
+    "unit": "ns",
+    "provenance": "Sec. 4 design condition",
+    "kind": "reported"
+   },
+   "ResetPulse (ns)": {
+    "value": 7,
+    "unit": "ns",
+    "provenance": "same",
+    "kind": "reported"
+   },
+   "SetEnergy (pJ)": {
+    "value": 0.213,
+    "unit": "pJ",
+    "provenance": "Table II write power 30.47 uW x 7 ns = 30.47e-6 x 7e-9 = 2.133e-13 J = 213.3 fJ = 0.213 pJ",
+    "kind": "derived"
+   },
+   "ResetEnergy (pJ)": {
+    "value": 0.213,
+    "unit": "pJ",
+    "provenance": "same (single write-power value reported)",
+    "kind": "derived"
+   },
+   "AccessType": {
+    "value": "CMOS",
+    "unit": null,
+    "provenance": "Fig. 4(a)",
+    "kind": "reported"
+   },
+   "AccessCMOSWidth (F)": {
+    "value": 1.78,
+    "unit": "F",
+    "provenance": "Table II 'Transistor width' = 80 nm; 80/45 = 1.78 F. On the paper's own grid, 80 nm = 4 lambda = 2 F at F = 40 nm.",
+    "kind": "derived"
+   }
+  },
+  "unmapped_parameters": [
+   {
+    "name": "V_WWL",
+    "value": "+0.76 V",
+    "provenance": "Table II",
+    "why_unmapped": "Word-line underdrive used to keep V_GS below V_DD when BL is negative; peripheral, no cell key."
+   },
+   {
+    "name": "Body bias",
+    "value": "V_MINUS (-0.24 V)",
+    "provenance": "Sec. 3: 'the body voltage in this work is set to V_MINUS'",
+    "why_unmapped": "No DESTINY key; but it means this cell needs a triple-well / separate body rail, an area cost NOT included in the 0.0644 um^2 figure."
+   },
+   {
+    "name": "Read-disturb margin",
+    "value": "96 %",
+    "provenance": "Table II",
+    "why_unmapped": "reliability metric"
+   }
+  ],
+  "warnings": [
+   "AccessCMOSWidth = 1.78 F (80 nm) is below the 45 nm node's minimum-width devices in most PDKs and is only 44% of the conventional SOT cell's transistor. The cell still meets 7 ns only because V_WRITE is raised to 0.95 V. If you sweep this cell in DESTINY at a different node the write timing will not track.",
+   "Write bias is strongly asymmetric: +0.95 V for '1' vs -0.24 V for '0', a 4x difference, yet write power is reported as a single number (30.47 uW). The .cell file cannot represent that asymmetry faithfully with one SetEnergy/ResetEnergy pair derived from a single power figure.",
+   "The cell requires a negative supply rail (V_MINUS = -0.24 V) on BL and on unselected word lines. DESTINY has no way to model the extra rail's area/energy cost.",
+   "Same missing R_P/R_AP/TMR problem as the conventional cell.",
+   "Same F = 40 vs 45 nm ambiguity in the area conversion."
+  ]
+ },
+ {
+  "id": "stt_seo2020_1t1mtj_reference",
+  "citation": "Yeongkyo Seo, Kon-Woo Kwon, \"Area-optimized design of SOT-MRAM,\" IEICE Electronics Express, 17(21):1-5, art. 20200314, 2020",
+  "doi": "10.1587/elex.17.20200314",
+  "technology": "STT-MRAM 1T1MTJ, this paper's own area/power baseline",
+  "process_node_nm": 45,
+  "temperature_K": null,
+  "cell_levels": "SLC",
+  "device_geometry": "Table I STT device column: free layer 120 nm x 40 nm x 2 nm, elliptical; oxide thickness 1.15 nm; alpha = 0.007; Ms = 900e3 A/m. Single-finger access transistor (1T1MTJ); layout Fig. 6(a).",
+  "fields": {
+   "MemCellType": {
+    "value": "MRAM",
+    "unit": null,
+    "provenance": "Table I/II",
+    "kind": "reported"
+   },
+   "ProcessNode (nm)": {
+    "value": 45,
+    "unit": "nm",
+    "provenance": "Abstract",
+    "kind": "reported"
+   },
+   "CellArea (F^2)": {
+    "value": 41.1,
+    "unit": "F^2",
+    "provenance": "Table II 0.0832 um^2 = 83200 nm^2; 83200/2025 = 41.09 F^2 at F = 45 nm (52.0 F^2 at F = 40 nm)",
+    "kind": "derived"
+   },
+   "ReadPower (uW)": {
+    "value": 69.79,
+    "unit": "uW",
+    "provenance": "Table II",
+    "kind": "reported"
+   },
+   "SetCurrent (uA)": {
+    "value": 130,
+    "unit": "uA",
+    "provenance": "Table I, 'Critical current (7ns)', STT device column - single value, no direction split given",
+    "kind": "reported"
+   },
+   "ResetCurrent (uA)": {
+    "value": 130,
+    "unit": "uA",
+    "provenance": "same single value",
+    "kind": "reported"
+   },
+   "SetVoltage (V)": {
+    "value": 0.98,
+    "unit": "V",
+    "provenance": "Table II V_WRITE = +0.98 V",
+    "kind": "reported"
+   },
+   "ResetVoltage (V)": {
+    "value": 0.98,
+    "unit": "V",
+    "provenance": "same magnitude, opposite polarity",
+    "kind": "reported"
+   },
+   "SetPulse (ns)": {
+    "value": 7,
+    "unit": "ns",
+    "provenance": "design condition",
+    "kind": "reported"
+   },
+   "SetEnergy (pJ)": {
+    "value": 1.336,
+    "unit": "pJ",
+    "provenance": "190.82 uW x 7 ns = 1.3357e-12 J = 1335.7 fJ = 1.336 pJ",
+    "kind": "derived"
+   },
+   "AccessCMOSWidth (F)": {
+    "value": 8.89,
+    "unit": "F",
+    "provenance": "Table II transistor width 400 nm; 400/45 = 8.89 F (= 20 lambda = 10 F at F = 40 nm)",
+    "kind": "derived"
+   }
+  },
+  "unmapped_parameters": [
+   {
+    "name": "Read-disturb margin",
+    "value": "51 %",
+    "provenance": "Table II",
+    "why_unmapped": "reliability metric; the SOT cells reach 96%"
+   }
+  ],
+  "warnings": [
+   "Same missing R_P/R_AP/TMR problem.",
+   "This is the STT number in the SOT-vs-STT area comparison: 41.1 F^2 (STT) vs 54.5 F^2 (conventional SOT) vs 31.8 F^2 (proposed SOT), all at F = 45 nm."
+  ]
+ },
+ {
+  "id": "sot_cubukcu2018_275nm_measured",
+  "citation": "Murat Cubukcu, Olivier Boulle, Nikolai Mikuszeit, Claire Hamelin, Thomas Bracher, Nathalie Lamard, Marie-Claire Cyrille, Liliana Buda-Prejbeanu, Kevin Garello, Ioan Mihai Miron, O. Klein, G. de Loubens, V. V. Naletov, Juergen Langer, Berthold Ocker, Pietro Gambardella, Gilles Gaudin, \"Ultra-Fast Perpendicular Spin-Orbit Torque MRAM,\" IEEE Transactions on Magnetics, 54(4):1-4, art. 9300204, April 2018",
+  "doi": "10.1109/TMAG.2017.2772185",
+  "technology": "SOT-MRAM, three-terminal perpendicular Ta/FeCoB/MgO/FeCoB MTJ - MEASURED single device, not an array cell",
+  "process_node_nm": null,
+  "temperature_K": 300,
+  "cell_levels": "SLC",
+  "device_geometry": "Verbatim: 'Functional three-terminal single cells with lateral dimensions down to 150 nm diameter on top of a 330 nm wide Ta track were fabricated'; 'The results presented here are obtained from a sample with a 275 nm diameter MTJ on top of a 635 nm Ta track'. Stack: 10 Ta / 1 Fe60Co20B20 / MgO / 1.3 Fe60Co20B20 / 0.3 Ta / FM1 / Ru 0.85 / FM2 (nm), FM1 = [0.4 Co/0.4 Cu/1.4 Pt]x5/0.6 Co, FM2 = 0.6 Co/[0.4 Cu/1.4 Pt/0.4 Co]x12/0.4 Cu/2 Pt. Circular MTJ, perpendicular magnetisation. Three terminals -> a memory implementation needs 2 transistors (separate read and write paths); the paper does not build a bit-cell and states no transistor count or footprint.",
+  "fields": {
+   "MemCellType": {
+    "value": "MRAM",
+    "unit": null,
+    "provenance": "title",
+    "kind": "reported"
+   },
+   "MemCellLevel": {
+    "value": "SLC",
+    "unit": null,
+    "provenance": "bipolar two-state switching only",
+    "kind": "assumed"
+   },
+   "Temperature (K)": {
+    "value": 300,
+    "unit": "K",
+    "provenance": "Sec. II: 'All measurements are carried out at room temperature'",
+    "kind": "reported"
+   },
+   "ResistanceOn (ohm)": {
+    "value": 10102,
+    "unit": "ohm",
+    "provenance": "RA = 600 ohm.um^2 (Sec. II: 'The resistance area product of the junction is about 600 ohm.um^2'); MTJ diameter 275 nm -> A = (pi/4)(0.275 um)^2 = 0.7854 x 0.075625 = 0.059395 um^2; R_P = 600 / 0.059395 = 10102 ohm",
+    "kind": "derived"
+   },
+   "ResistanceOff (ohm)": {
+    "value": 15658,
+    "unit": "ohm",
+    "provenance": "TMR = 55% (Sec. II: 'A TMR of up to 55% ... is observed', consistent with Fig. 1(c) plateau at ~55-57%). R_AP = R_P x (1 + TMR/100) = 10102 x 1.55 = 15658 ohm",
+    "kind": "derived"
+   },
+   "ReadMode": {
+    "value": "voltage",
+    "unit": null,
+    "provenance": "Sec. II: 'the TMR signal is measured using a dc voltage source connected to the MTJ in series with a 1 Mohm resistor'",
+    "kind": "reported"
+   },
+   "SetCurrent (uA)": {
+    "value": 20955,
+    "unit": "uA",
+    "provenance": "SET = P->AP (positive current). J_c = 3.3e12 A/m^2 (Sec. II, for the 550 ps pulse). Ta track cross-section = 635 nm x 10 nm (Ta thickness from the stack) = 6.35e-15 m^2. I_c = 3.3e12 x 6.35e-15 = 2.096e-2 A = 20955 uA = 21.0 mA. SEE WARNING - Fig. 3(a) reads ~17-19 mA at 0.55 ns and ~22 mA at 0.4 ns, so this derivation is only accurate to ~+/-20%.",
+    "kind": "derived"
+   },
+   "ResetCurrent (uA)": {
+    "value": null,
+    "unit": "uA",
+    "provenance": "RESET = AP->P (negative current). Sec. II states only that 'the switching current for the P to AP switching is slightly lower than the one for the AP to P' - the asymmetry is acknowledged but never quantified. Fig. 3(a) plots P->AP only.",
+    "kind": "reported"
+   },
+   "SetPulse (ns)": {
+    "value": 0.55,
+    "unit": "ns",
+    "provenance": "Sec. II: switching demonstrated with a 550 ps current pulse; 'The pulse width is defined as the full-width at half-maximum'; pulse rise time 220 ps for tau_P < 2 ns",
+    "kind": "reported"
+   },
+   "ResetPulse (ns)": {
+    "value": 0.55,
+    "unit": "ns",
+    "provenance": "same pulse family; switching 'is bipolar' over the whole 400 ps - 2.5 us range",
+    "kind": "reported"
+   },
+   "AccessType": {
+    "value": "CMOS",
+    "unit": null,
+    "provenance": "Not built. Fig. 3(b) assumes '3 kohm resistance standing for the Ta track and the addressing transistor', which implies one CMOS write transistor.",
+    "kind": "assumed"
+   }
+  },
+  "unmapped_parameters": [
+   {
+    "name": "Critical switching current density J_c",
+    "value": "3.3e12 A/m^2 at tau_P = 0.55 ns",
+    "provenance": "Sec. II",
+    "why_unmapped": "DESTINY takes absolute currents, not densities; but J_c is the transferable quantity - see the cross-paper analysis."
+   },
+   {
+    "name": "External in-plane field required",
+    "value": "mu0*H_ip = 100 mT (also measured at 150 mT)",
+    "provenance": "Sec. II and Fig. 2/3",
+    "why_unmapped": "No DESTINY key. CRITICAL: this cell is NOT field-free; all quoted switching currents are field-assisted."
+   },
+   {
+    "name": "J_c scaling law",
+    "value": "J_c ~ log(tau_P) for tau_P > 10 ns (thermally activated); J_c ~ 1/tau_P for tau_P < 10 ns",
+    "provenance": "Sec. II, Fig. 3(a) and inset",
+    "why_unmapped": "No DESTINY key, but it is the rule you need to move this cell to a different SetPulse."
+   },
+   {
+    "name": "Assumed series resistance for the energy calculation",
+    "value": "3 kohm (Ta track + addressing transistor)",
+    "provenance": "Fig. 3(b) caption",
+    "why_unmapped": "DESTINY derives this from its own transistor model."
+   },
+   {
+    "name": "Measured write energy on the 635 nm device",
+    "value": "~190-525 pJ over tau_P = 0.4-15 ns, minimum ~190 pJ between 1 and 3 ns (100 mT); ~140-420 pJ at 150 mT",
+    "provenance": "Fig. 3(b), black left axis",
+    "why_unmapped": "Belongs to the 635 nm test structure, not a scaled cell. Three orders of magnitude above any cell-level number."
+   }
+  ],
+  "warnings": [
+   "This is a device-physics measurement, not a memory cell. Both the MTJ (275 nm) and the Ta track (635 nm) are far above any array pitch, and the write current is 21 mA. Do not put the measured currents in a .cell file - use the projected entry below.",
+   "Switching requires a 100-150 mT external in-plane field. Papers that quote 'sub-ns SOT switching' from this reference without that caveat are misciting it.",
+   "The paper explicitly reports directional asymmetry (P->AP lower than AP->P, attributed to dipolar coupling from an incompletely compensated SAF) but never quantifies it. A symmetric Set/Reset .cell is an approximation here.",
+   "RA = 600 ohm.um^2 is very high for a memory MTJ. It is tolerable on a 275 nm junction (R_P = 10 kohm), but scaled to a 40 nm junction the same stack gives R_P = 600/0.001257 = 477 kohm, which no practical sense amplifier will read fast. Do not port this RA to a scaled cell.",
+   "Pulse width is FWHM with a 220 ps rise time, so a nominal 400 ps pulse carries a substantial ramp - 'switching time' and 'pulse width' are not interchangeable in this paper."
+  ]
+ },
+ {
+  "id": "sot_cubukcu2018_50nm_projected",
+  "citation": "Murat Cubukcu et al., \"Ultra-Fast Perpendicular Spin-Orbit Torque MRAM,\" IEEE Transactions on Magnetics, 54(4):1-4, art. 9300204, April 2018",
+  "doi": "10.1109/TMAG.2017.2772185",
+  "technology": "SOT-MRAM, same Ta/FeCoB/MgO stack, EXTRAPOLATED to a scaled SOT track",
+  "process_node_nm": null,
+  "temperature_K": 300,
+  "cell_levels": "SLC",
+  "device_geometry": "Verbatim: 'The energy scale extrapolated for a 50 nm wide and 3 nm thick Ta track is shown in blue on the right vertical axis.' Perpendicular MTJ on a 50 nm x 3 nm Ta track. MTJ diameter for the projection is not stated. Three-terminal, so 2 transistors minimum; no cell footprint given.",
+  "fields": {
+   "MemCellType": {
+    "value": "MRAM",
+    "unit": null,
+    "provenance": "title",
+    "kind": "reported"
+   },
+   "Temperature (K)": {
+    "value": 300,
+    "unit": "K",
+    "provenance": "Sec. II",
+    "kind": "reported"
+   },
+   "SetCurrent (uA)": {
+    "value": 180,
+    "unit": "uA",
+    "provenance": "Sec. II / Conclusion: 'A write energy of about 95 fJ at 1.5 ns can be reached, associated with a write current of about 180 uA'; 'These experimental results extrapolate to a switching current of around 180 uA at 1.5 ns for 50 nm track width'. Direction: the measured data behind the extrapolation is P->AP (Fig. 3(a)), so this is SET.",
+    "kind": "reported"
+   },
+   "ResetCurrent (uA)": {
+    "value": 180,
+    "unit": "uA",
+    "provenance": "The paper gives ONE projected current. AP->P is stated to be slightly higher but is not quantified, so Reset is set equal to Set.",
+    "kind": "reported"
+   },
+   "SetPulse (ns)": {
+    "value": 1.5,
+    "unit": "ns",
+    "provenance": "Sec. II / Conclusion",
+    "kind": "reported"
+   },
+   "ResetPulse (ns)": {
+    "value": 1.5,
+    "unit": "ns",
+    "provenance": "same",
+    "kind": "reported"
+   },
+   "SetEnergy (pJ)": {
+    "value": 0.095,
+    "unit": "pJ",
+    "provenance": "'A write energy of about 95 fJ at 1.5 ns'; 95 fJ = 95e-15 J = 0.095 pJ",
+    "kind": "reported"
+   },
+   "ResetEnergy (pJ)": {
+    "value": 0.095,
+    "unit": "pJ",
+    "provenance": "same single projected value",
+    "kind": "reported"
+   },
+   "ResistanceOn (ohm)": {
+    "value": null,
+    "unit": "ohm",
+    "provenance": "The projection scales the TRACK only; no MTJ diameter is given for the scaled device, so RA = 600 ohm.um^2 cannot be turned into a resistance. Do not reuse the 275 nm resistances here.",
+    "kind": "reported"
+   },
+   "AccessType": {
+    "value": "CMOS",
+    "unit": null,
+    "provenance": "implied by the '3 kohm ... addressing transistor' assumption",
+    "kind": "assumed"
+   }
+  },
+  "unmapped_parameters": [
+   {
+    "name": "Implied current density of the projection",
+    "value": "180 uA / (50 nm x 3 nm) = 180e-6 / 1.5e-16 = 1.2e12 A/m^2",
+    "provenance": "derived from the reported 180 uA and the stated 50 x 3 nm track",
+    "why_unmapped": "No DESTINY key; useful as the cross-paper normaliser."
+   },
+   {
+    "name": "Implied effective series resistance",
+    "value": "95 fJ / ((180e-6)^2 x 1.5e-9) = 95e-15 / 4.86e-17 = 1955 ohm",
+    "provenance": "derived from E = R I^2 tau with the reported E, I and tau",
+    "why_unmapped": "Shows the projection did NOT keep the 3 kohm of the measured device; it scaled the track resistance too."
+   },
+   {
+    "name": "External in-plane field",
+    "value": "100-150 mT, still required",
+    "provenance": "the projection is a rescaling of field-assisted measurements",
+    "why_unmapped": "No DESTINY key; the projection inherits the field requirement."
+   }
+  ],
+  "warnings": [
+   "This is the only entry from this paper suitable for a .cell file, and it is an extrapolation, not a measurement.",
+   "The 95 fJ and 180 uA are internally consistent only with a ~2 kohm series resistance, not the 3 kohm used for the measured device. E = R*I^2*tau with R = 3 kohm would give 146 fJ, not 95 fJ. If you need the energy for a different assumed resistance, recompute rather than reusing 95 fJ.",
+   "Still field-assisted (100-150 mT). Compare against Wu 2020's field-free 3T2SOT only with that caveat.",
+   "The paper's own framing - 'similar to the best results obtained so far for current perpendicular STT-MRAM technology' - means this projection is NOT a demonstration of an SOT current advantage."
+  ]
+ },
+ {
+  "id": "sot_wu2020_3t2sot_fieldfree_45nm",
+  "citation": "Bi Wu, Chao Wang, Zhaohao Wang, Ying Wang, Deming Zhang, Dijun Liu, Youguang Zhang, Xiaobo Sharon Hu, \"Field-Free 3T2SOT MRAM for Non-Volatile Cache Memories,\" IEEE Transactions on Circuits and Systems I: Regular Papers, 67(12):4660-4669, December 2020",
+  "doi": "10.1109/TCSI.2020.3020798",
+  "technology": "SOT-MRAM, field-free (FF-SOT), 3 transistors + 2 MTJs storing 1 bit differentially",
+  "process_node_nm": 45,
+  "temperature_K": null,
+  "cell_levels": "SLC",
+  "device_geometry": "Verbatim Table II: MTJ area 40 nm x 40 nm; heavy-metal dimension 40 nm x 60 nm x 2 nm; free layer thickness 1 nm; oxide barrier thickness 0.85 nm; heavy-metal resistivity 200 uohm.cm; spin Hall angle 0.3; perpendicular (PMA) MTJ. Transistor count: 3 transistors and 2 SOT-MTJs per bit ('3T2SOT (three Transistors and two SOT magnetic tunnel junctions)'), the two MTJs sharing one heavy-metal strip and always holding complementary states for self-referenced sensing. Layout Fig. 6(c). Compare 2T1SOT (Fig. 6(a)) and 4T2SOT (Fig. 6(b)).",
+  "fields": {
+   "MemCellType": {
+    "value": "MRAM",
+    "unit": null,
+    "provenance": "title",
+    "kind": "reported"
+   },
+   "MemCellLevel": {
+    "value": "SLC",
+    "unit": null,
+    "provenance": "1 bit per cell, stored differentially across 2 MTJs",
+    "kind": "reported"
+   },
+   "ProcessNode (nm)": {
+    "value": 45,
+    "unit": "nm",
+    "provenance": "Sec. V-A: '45nm PTM model [24]'; Table III channel length 45 nm; Sec. V-D: 'at the 45 nm technology node'",
+    "kind": "reported"
+   },
+   "CellArea (F^2)": {
+    "value": 27,
+    "unit": "F^2",
+    "provenance": "Table IV, 'Area (F^2)' column, 3T2SOT row: '9*3' = 27 F^2 (9 F^2 per access transistor x 3 transistors), for one bit",
+    "kind": "reported"
+   },
+   "ResistanceOn (ohm)": {
+    "value": 6250,
+    "unit": "ohm",
+    "provenance": "Table II: R.A. of the MTJ = 10 ohm.um^2; MTJ area 40 nm x 40 nm = 1600 nm^2 = 1.6e-3 um^2. R_P = 10 / 1.6e-3 = 6250 ohm",
+    "kind": "derived"
+   },
+   "ResistanceOff (ohm)": {
+    "value": 11875,
+    "unit": "ohm",
+    "provenance": "Table II: TMR(STT/SOT) = 120% / 90%; this is a SOT device so TMR = 90%. R_AP = R_P x (1 + 90/100) = 6250 x 1.9 = 11875 ohm",
+    "kind": "derived"
+   },
+   "ReadMode": {
+    "value": "voltage",
+    "unit": null,
+    "provenance": "Sec. V-A / Fig. 8: pre-charge sense amplifier comparing V_MTJ0 against V_MTJ1 with a clamping voltage; Fig. 10 plots V_data and V_ref",
+    "kind": "reported"
+   },
+   "ReadPulse (ns)": {
+    "value": 0.21,
+    "unit": "ns",
+    "provenance": "Table IV, 3T2SOT row, 'Read Latency' = 0.21 ns for reading '0' (0.14 ns for reading '1')",
+    "kind": "reported"
+   },
+   "ReadPower (uW)": {
+    "value": 42.2,
+    "unit": "uW",
+    "provenance": "Table IV read energy 8.86 fJ for '0' / read latency 0.21 ns = 8.86e-15 J / 0.21e-9 s = 4.219e-5 W = 42.2 uW. (Reading '1': 10.02 fJ / 0.14 ns = 71.6 uW.)",
+    "kind": "derived"
+   },
+   "MinSenseVoltage (mV)": {
+    "value": null,
+    "unit": "mV",
+    "provenance": "Sec. V-C only says 'the sensing voltage difference is usually only tens of millivolts'; Fig. 11 histograms the sensing margin but no single threshold is stated",
+    "kind": "reported"
+   },
+   "SetMode": {
+    "value": "current",
+    "unit": null,
+    "provenance": "SOT write current through the shared heavy-metal strip",
+    "kind": "reported"
+   },
+   "SetCurrent (uA)": {
+    "value": 33,
+    "unit": "uA",
+    "provenance": "Sec. V-B: 'The switching current of the proposed 3T2SOT is about 30-35 uA'; midpoint 33 uA. Fig. 9(b) shows I_3T2SOT plateauing at ~34 uA. IMPORTANT: this cell writes UNIDIRECTIONALLY - a single current direction through the shared HM always drives the two MTJs into complementary states, so Set and Reset are the same electrical operation.",
+    "kind": "reported"
+   },
+   "ResetCurrent (uA)": {
+    "value": 33,
+    "unit": "uA",
+    "provenance": "Identical to Set - unidirectional field-free write, see above. Table IV confirms identical write latency (0.26 ns) and energy (9.556 fJ) for '0' and '1'.",
+    "kind": "reported"
+   },
+   "SetPulse (ns)": {
+    "value": 0.26,
+    "unit": "ns",
+    "provenance": "Table IV, 3T2SOT, 'Write latency' = 0.26 for '1'; footnote: 'the write latency of ... 3T2SOT are fixed to ... 0.26 ns'",
+    "kind": "reported"
+   },
+   "ResetPulse (ns)": {
+    "value": 0.26,
+    "unit": "ns",
+    "provenance": "Table IV, 0.26 for '0'",
+    "kind": "reported"
+   },
+   "SetEnergy (pJ)": {
+    "value": 0.009556,
+    "unit": "pJ",
+    "provenance": "Table IV: 9.556 fJ for '1'; 9.556 fJ = 9.556e-15 J = 0.009556 pJ",
+    "kind": "derived"
+   },
+   "ResetEnergy (pJ)": {
+    "value": 0.009556,
+    "unit": "pJ",
+    "provenance": "Table IV: 9.556 fJ for '0' (identical)",
+    "kind": "derived"
+   },
+   "AccessType": {
+    "value": "CMOS",
+    "unit": null,
+    "provenance": "Fig. 5/7: 2 RWL read transistors + 1 WWL write transistor",
+    "kind": "reported"
+   },
+   "AccessCMOSWidth (F)": {
+    "value": 3.0,
+    "unit": "F",
+    "provenance": "Table III: channel width 135 nm, channel length 45 nm. 135 nm / 45 nm = 3.0 F",
+    "kind": "derived"
+   },
+   "LeakageCurrentAccessDevice (uA)": {
+    "value": null,
+    "unit": "uA",
+    "provenance": "not reported",
+    "kind": "reported"
+   }
+  },
+  "array_level_results": {
+   "tool": "NVSim (Bank-Mat-Subarray model), 45 nm node; cell-level from Cadence Spectre + SOT-MTJ compact model",
+   "capacity": "swept; explicit claims at 64 KB and 8 MB",
+   "results": {
+    "read_latency_improvement_vs_SRAM_at_8MB_percent": 38.9,
+    "L1_64KB_access_latency_ns": 0.5,
+    "note": "Sec. V-D: 'even achieves 38.9% read latency improvement than SRAM when the capacity increases to 8MB'; 'For the same L1 capacity design (64 KB), our 3T2SOT L1 cache only needs 0.5 ns'. Crossover point: SRAM wins below 1 MB; 3T2SOT comparable or better above 1 MB. Comparison set: SRAM, 1T1MTJ STT-MRAM, 2T2MTJ STT-MRAM, 2T1SOT MRAM, FF-3T2SOT (Fig. 12 a/b/c: area, read latency, write latency)."
+   }
+  },
+  "unmapped_parameters": [
+   {
+    "name": "Spin Hall angle",
+    "value": 0.3,
+    "provenance": "Table II",
+    "why_unmapped": "No DESTINY key; already reflected in SetCurrent."
+   },
+   {
+    "name": "Heavy-metal resistivity",
+    "value": "200 uohm.cm",
+    "provenance": "Table II",
+    "why_unmapped": "No DESTINY key. Implied HM strip resistance along the 60 nm length: rho*L/(W*t) = (2e-6 x 60e-9)/(40e-9 x 2e-9) = 1500 ohm."
+   },
+   {
+    "name": "Damping constant",
+    "value": 0.02,
+    "provenance": "Table II",
+    "why_unmapped": "LLGS input"
+   },
+   {
+    "name": "Effective magnetic anisotropy",
+    "value": "1.33e5 A/m",
+    "provenance": "Table II",
+    "why_unmapped": "LLGS input"
+   },
+   {
+    "name": "Saturation magnetisation",
+    "value": "1e6 A/m",
+    "provenance": "Table II",
+    "why_unmapped": "LLGS input"
+   },
+   {
+    "name": "Transistor threshold voltage",
+    "value": "0.4 V (sigma 8%)",
+    "provenance": "Table III",
+    "why_unmapped": "DESTINY takes this from its process model."
+   },
+   {
+    "name": "Process variation model",
+    "value": "gate length sigma 2 nm, MTJ size sigma 2 nm, Vth sigma 8%, RA sigma 5%, TMR sigma 2%; 1000 Monte Carlo runs",
+    "provenance": "Table III + Sec. V-A",
+    "why_unmapped": "No DESTINY key."
+   },
+   {
+    "name": "TMR literature survey",
+    "value": "Ta-SOT PMA 55%; W-SOT PMA 90%; Ta-SOT in-plane 102%",
+    "provenance": "Table I",
+    "why_unmapped": "Survey, not this cell's parameter. Note the 55% row is Cubukcu 2018 [ref 12], i.e. paper 3 of this set."
+   },
+   {
+    "name": "Read-before-write requirement",
+    "value": "required (only 3T2SOT among the four cells needs it)",
+    "provenance": "Table IV 'Pre-read' column = Y; Sec. V-D",
+    "why_unmapped": "No DESTINY key. The latency penalty IS already folded into the reported write latency, but a DESTINY write model without it will silently drop the extra read."
+   }
+  ],
+  "warnings": [
+   "AREA IS NOT A LAYOUT NUMBER. Table IV's 'Area (F^2)' is literally transistor count x 9 F^2 (2T1SOT = 9*2, 3T2SOT = 9*3). 9 F^2 for a W = 3F device leaves no room for source/drain contacts, spacing or the MTJ/HM stack footprint; a realistic 3F-wide MRAM access device is 12-16 F^2. The 27 F^2 for 3T2SOT is therefore an optimistic lower bound.",
+   "The same table assigns 40.33 F^2 to the SINGLE 1T1MTJ STT access transistor - a 4.5x area ratio against the 9 F^2 SOT transistor for only a ~2x drive-current ratio (75 uA vs 33 uA). This asymmetric sizing assumption is what produces the paper's conclusion that SOT is denser than STT, and it is the opposite ordering from Liao 2020 and Seo & Kwon 2020. Treat it as an assumption, not a result.",
+   "The cell stores 1 bit in 2 MTJs and 3 transistors. If you model it in DESTINY as an ordinary 1-MTJ cell you will halve the storage-element count and get the wrong array energy. There is no DESTINY key for a differential 2-MTJ cell.",
+   "Write is UNIDIRECTIONAL and requires a read-before-write. Set and Reset currents/energies are identical by construction, which is unusual and worth a comment in the .cell file.",
+   "Temperature is never stated. 45 nm PTM default (typically 300 K / 27 C) is the reasonable assumption but the paper does not say so.",
+   "Abstract says 'the write latency of the proposed design can be reduced to 0.3 ns' while Table IV says 0.26 ns. Use 0.26 ns (the table).",
+   "TMR 90% is a literature value from W-SOT [ref 13], not measured on this stack; the measured Ta-SOT value in the same Table I is 55%."
+  ]
+ },
+ {
+  "id": "sot_wu2020_2t1sot_45nm",
+  "citation": "Bi Wu et al., \"Field-Free 3T2SOT MRAM for Non-Volatile Cache Memories,\" IEEE Transactions on Circuits and Systems I: Regular Papers, 67(12):4660-4669, December 2020",
+  "doi": "10.1109/TCSI.2020.3020798",
+  "technology": "SOT-MRAM, conventional 2T1SOT (this paper's SOT baseline, field-assisted)",
+  "process_node_nm": 45,
+  "temperature_K": null,
+  "cell_levels": "SLC",
+  "device_geometry": "Same MTJ/HM stack as Table II (MTJ 40x40 nm, HM 40x60x2 nm, PMA, theta_SH 0.3). Two transistors: one read access transistor (RWL) and one write access transistor (WWL); Fig. 1(b) and layout Fig. 6(a) with separate WBL and RBL. Bidirectional write current through the HM, and 'the write operation of the conventional SOT still needs an additional magnetic field'.",
+  "fields": {
+   "MemCellType": {
+    "value": "MRAM",
+    "unit": null,
+    "provenance": "Fig. 1(b)",
+    "kind": "reported"
+   },
+   "ProcessNode (nm)": {
+    "value": 45,
+    "unit": "nm",
+    "provenance": "Sec. V-A",
+    "kind": "reported"
+   },
+   "CellArea (F^2)": {
+    "value": 18,
+    "unit": "F^2",
+    "provenance": "Table IV, 'Area (F^2)', 2T1SOT row: '9*2' = 18 F^2",
+    "kind": "reported"
+   },
+   "ResistanceOn (ohm)": {
+    "value": 6250,
+    "unit": "ohm",
+    "provenance": "RA 10 ohm.um^2 / (40 nm x 40 nm = 1.6e-3 um^2) = 6250 ohm",
+    "kind": "derived"
+   },
+   "ResistanceOff (ohm)": {
+    "value": 11875,
+    "unit": "ohm",
+    "provenance": "SOT TMR 90% (Table II): 6250 x 1.9 = 11875 ohm",
+    "kind": "derived"
+   },
+   "ReadMode": {
+    "value": "voltage",
+    "unit": null,
+    "provenance": "Sec. V-A: PCSA comparing the data branch against a reference branch (needs an extra 2-MTJ reference cell)",
+    "kind": "reported"
+   },
+   "ReadPulse (ns)": {
+    "value": 0.29,
+    "unit": "ns",
+    "provenance": "Table IV, 2T1SOT, read latency 0.29 ns for '0' (0.16 ns for '1')",
+    "kind": "reported"
+   },
+   "ReadPower (uW)": {
+    "value": 65.1,
+    "unit": "uW",
+    "provenance": "Table IV read energy 18.87 fJ ('0') / 0.29 ns = 1.887e-14 / 2.9e-10 = 6.507e-5 W = 65.1 uW. (Reading '1': 19.82 fJ / 0.16 ns = 123.9 uW.)",
+    "kind": "derived"
+   },
+   "SetCurrent (uA)": {
+    "value": 63,
+    "unit": "uA",
+    "provenance": "Fig. 9(b), I_2T1SOT waveform plateau at ~63 uA. Not printed in the text; read off the figure - accurate to about +/-3 uA.",
+    "kind": "reported"
+   },
+   "ResetCurrent (uA)": {
+    "value": 63,
+    "unit": "uA",
+    "provenance": "Bidirectional write; Table IV gives identical latency (0.55 ns) and energy (37.9 fJ) for '0' and '1', so the same magnitude applies both ways.",
+    "kind": "reported"
+   },
+   "SetPulse (ns)": {
+    "value": 0.55,
+    "unit": "ns",
+    "provenance": "Table IV, 2T1SOT write latency 0.55 ns for '1'; footnote fixes it to 0.55 ns",
+    "kind": "reported"
+   },
+   "ResetPulse (ns)": {
+    "value": 0.55,
+    "unit": "ns",
+    "provenance": "Table IV, 0.55 ns for '0'",
+    "kind": "reported"
+   },
+   "SetEnergy (pJ)": {
+    "value": 0.0379,
+    "unit": "pJ",
+    "provenance": "Table IV 37.9 fJ = 0.0379 pJ",
+    "kind": "derived"
+   },
+   "ResetEnergy (pJ)": {
+    "value": 0.0379,
+    "unit": "pJ",
+    "provenance": "Table IV 37.9 fJ = 0.0379 pJ",
+    "kind": "derived"
+   },
+   "AccessType": {
+    "value": "CMOS",
+    "unit": null,
+    "provenance": "Fig. 1(b)",
+    "kind": "reported"
+   },
+   "AccessCMOSWidth (F)": {
+    "value": 3.0,
+    "unit": "F",
+    "provenance": "Table III channel width 135 nm / 45 nm = 3.0 F",
+    "kind": "derived"
+   }
+  },
+  "unmapped_parameters": [
+   {
+    "name": "Read error rate",
+    "value": "0.55% even at TMR = 110%",
+    "provenance": "Sec. III-A and Fig. 4",
+    "why_unmapped": "No DESTINY key; it is the motivation for the 3T2SOT cell."
+   },
+   {
+    "name": "External magnetic field",
+    "value": "required",
+    "provenance": "Sec. III: 'the write operation of the conventional SOT still needs an additional magnetic field, which induces a large energy overhead and high complexity in circuit design'",
+    "why_unmapped": "No DESTINY key; the 37.9 fJ write energy does NOT include the field-generation overhead."
+   }
+  ],
+  "warnings": [
+   "The 37.9 fJ write energy excludes the external magnetic field the paper says this cell needs. It is therefore not comparable head-to-head with the field-free 3T2SOT's 9.556 fJ.",
+   "63 uA is read off Fig. 9(b), not printed. Everything else here is from tables.",
+   "Same 9 F^2-per-transistor area caveat as the 3T2SOT entry.",
+   "This cell needs an extra out-of-cell 2-MTJ reference column that the 18 F^2 does not include (Sec. V-A)."
+  ]
+ },
+ {
+  "id": "stt_wu2020_1t1mtj_45nm_reference",
+  "citation": "Bi Wu et al., \"Field-Free 3T2SOT MRAM for Non-Volatile Cache Memories,\" IEEE Transactions on Circuits and Systems I: Regular Papers, 67(12):4660-4669, December 2020",
+  "doi": "10.1109/TCSI.2020.3020798",
+  "technology": "STT-MRAM 1T1MTJ, this paper's STT baseline",
+  "process_node_nm": 45,
+  "temperature_K": null,
+  "cell_levels": "SLC",
+  "device_geometry": "Same MTJ as Table II: 40 nm x 40 nm, free layer 1 nm, oxide 0.85 nm, PMA. One access transistor (1T1MTJ), Fig. 1(a). A 2T2MTJ differential variant is also evaluated at 2 x 40.33 F^2.",
+  "fields": {
+   "MemCellType": {
+    "value": "MRAM",
+    "unit": null,
+    "provenance": "Fig. 1(a)",
+    "kind": "reported"
+   },
+   "ProcessNode (nm)": {
+    "value": 45,
+    "unit": "nm",
+    "provenance": "Sec. V-A",
+    "kind": "reported"
+   },
+   "CellArea (F^2)": {
+    "value": 40.33,
+    "unit": "F^2",
+    "provenance": "Table IV, 'Area (F^2)', 1T1MTJ row",
+    "kind": "reported"
+   },
+   "ResistanceOn (ohm)": {
+    "value": 6250,
+    "unit": "ohm",
+    "provenance": "RA 10 ohm.um^2 / 1.6e-3 um^2 = 6250 ohm",
+    "kind": "derived"
+   },
+   "ResistanceOff (ohm)": {
+    "value": 13750,
+    "unit": "ohm",
+    "provenance": "STT TMR = 120% (Table II, 'TMR(STT/SOT) 120% / 90%'): R_AP = 6250 x (1 + 120/100) = 6250 x 2.2 = 13750 ohm",
+    "kind": "derived"
+   },
+   "ReadMode": {
+    "value": "voltage",
+    "unit": null,
+    "provenance": "PCSA with external reference cell, Sec. V-A",
+    "kind": "reported"
+   },
+   "ReadPulse (ns)": {
+    "value": 0.27,
+    "unit": "ns",
+    "provenance": "Table IV, read latency 0.27 ns for '0' (0.15 ns for '1')",
+    "kind": "reported"
+   },
+   "ReadPower (uW)": {
+    "value": 63.1,
+    "unit": "uW",
+    "provenance": "Table IV read energy 17.05 fJ ('0') / 0.27 ns = 1.705e-14 / 2.7e-10 = 6.315e-5 W = 63.1 uW",
+    "kind": "derived"
+   },
+   "SetCurrent (uA)": {
+    "value": 75,
+    "unit": "uA",
+    "provenance": "Sec. V-B: 'the switching threshold current of STT-MTJ is about 75 uA'. SET = P->AP = writing '1'. Fig. 9(a) shows the P->AP waveform peaking near 105 uA and settling near 78 uA.",
+    "kind": "reported"
+   },
+   "ResetCurrent (uA)": {
+    "value": 75,
+    "unit": "uA",
+    "provenance": "RESET = AP->P = writing '0'. Only one threshold current (75 uA) is quoted for both directions; the asymmetry appears in the LATENCY, not in a reported current.",
+    "kind": "reported"
+   },
+   "SetPulse (ns)": {
+    "value": 4.931,
+    "unit": "ns",
+    "provenance": "Table IV, 1T1MTJ, write latency 4.931 ns for '1' (P->AP). Sec. V-B: 'Writing 1 takes longer because P-to-AP switching is more difficult than AP-to-P due to the asymmetrical STT efficiency and source degeneration.'",
+    "kind": "reported"
+   },
+   "ResetPulse (ns)": {
+    "value": 2.732,
+    "unit": "ns",
+    "provenance": "Table IV, write latency 2.732 ns for '0' (AP->P)",
+    "kind": "reported"
+   },
+   "SetEnergy (pJ)": {
+    "value": 0.5592,
+    "unit": "pJ",
+    "provenance": "Table IV 559.2 fJ for '1' = 0.5592 pJ",
+    "kind": "derived"
+   },
+   "ResetEnergy (pJ)": {
+    "value": 0.5549,
+    "unit": "pJ",
+    "provenance": "Table IV 554.9 fJ for '0' = 0.5549 pJ",
+    "kind": "derived"
+   },
+   "AccessType": {
+    "value": "CMOS",
+    "unit": null,
+    "provenance": "Fig. 1(a)",
+    "kind": "reported"
+   },
+   "AccessCMOSWidth (F)": {
+    "value": null,
+    "unit": "F",
+    "provenance": "Table III's 135 nm channel width is the Monte Carlo nominal; it cannot be the 1T1MTJ device, since 40.33 F^2 implies a much wider transistor. The 1T1MTJ transistor width is never stated.",
+    "kind": "reported"
+   }
+  },
+  "unmapped_parameters": [
+   {
+    "name": "2T2MTJ differential STT variant",
+    "value": "area 2 x 40.33 F^2; write 4.931 ns / 1114 fJ both directions; read 0.19 ns / 7.75 fJ ('0'), 0.14 ns / 8.89 fJ ('1'); self-reference Y",
+    "provenance": "Table IV, 2T2MTJ row",
+    "why_unmapped": "Separate cell topology; listed here rather than as its own object because it shares every device parameter with the 1T1MTJ row."
+   }
+  ],
+  "warnings": [
+   "This is the row that makes SOT look denser than STT in this paper: 40.33 F^2 for one STT transistor vs 9 F^2 for each SOT transistor. The 40.33 F^2 is asserted, not derived from a layout.",
+   "Genuine Set/Reset asymmetry here: 4.931 ns (P->AP) vs 2.732 ns (AP->P), a 1.8x ratio, with essentially equal energies (559.2 vs 554.9 fJ). The asymmetry is in the time, not the current - only one threshold current (75 uA) is quoted.",
+   "Table IV footnote says write latency is FIXED to 4.9 ns for 1T1MTJ as a transistor-sizing prerequisite, so 2.732 ns for '0' is a simulated outcome inside a 4.9 ns budget, not an independent design point."
+  ]
+ },
+ {
+  "id": "review_wang2017_spin_no_cell_parameters",
+  "citation": "Tao Wang, John Q. Xiao, Xin Fan, \"Spin-Orbit Torques in Metallic Magnetic Multilayers: Challenges and New Opportunities,\" SPIN, 7(3):1740013 (14 pages), 2017",
+  "doi": "10.1142/S2010324717400136",
+  "technology": "SOT materials physics review (no device or cell)",
+  "process_node_nm": null,
+  "temperature_K": null,
+  "cell_levels": null,
+  "device_geometry": "None. Fig. 1 is a schematic bit-cell architecture for STT-MRAM and SOT-MRAM 'adapted from Ref. 1', with no dimensions, no transistor count and no areas.",
+  "fields": {},
+  "unmapped_parameters": [
+   {
+    "name": "Spin Hall angle, W(O)/CoFeB/TaN",
+    "value": "up to 0.5",
+    "provenance": "Sec. 4 (materials): 'The incorporation of oxygen in W films could introduce a large spin Hall angles of up to 0.5'",
+    "why_unmapped": "Material figure of merit; no DESTINY key and no accompanying device."
+   },
+   {
+    "name": "Spin torque ratio, permalloy/Bi2Se3",
+    "value": "2 to 3.5 at room temperature",
+    "provenance": "Fig. 5 caption (ST-FMR measurement)",
+    "why_unmapped": "Material figure of merit."
+   },
+   {
+    "name": "Critical switching current density, magnetically doped TI",
+    "value": "8.9e4 A/cm^2 = 8.9e8 A/m^2",
+    "provenance": "Sec. 4.2: '(Bi0.5Sb0.5)2Te3/(Cr0.08Bi0.54Sb0.38)2Te3 ... low critical current density of 8.9E+4 A/cm^2'",
+    "why_unmapped": "Measured at 1.9 K in an in-plane external field, on a topological-insulator heterostructure with no MTJ. Useless as a room-temperature memory-cell input, and ~3-4 orders of magnitude below the metallic values in the other four papers."
+   },
+   {
+    "name": "Sub-ns SOT switching (cited, not measured here)",
+    "value": "200 ps current pulse, Garello et al. [ref 130]",
+    "provenance": "Sec. 5",
+    "why_unmapped": "Secondary citation."
+   },
+   {
+    "name": "Spin diffusion length in V",
+    "value": "~16 nm",
+    "provenance": "Sec. 2",
+    "why_unmapped": "Material parameter."
+   }
+  ],
+  "warnings": [
+   "THIS PAPER CONTAINS NO USABLE MEMORY-CELL PARAMETERS. It is a materials/physics review with no parameter table, no resistances, no TMR, no cell area, no pulse widths for a cell, and no transistor count. Nothing here should be turned into a .cell file.",
+   "The one quantitative switching number (8.9e4 A/cm^2) is a 1.9 K measurement in an applied field on a TI heterostructure. Do not carry it into a room-temperature array model.",
+   "The paper is useful to your project only as a source for the physical caveat it states explicitly: 'during the switching, the SOT competes against the anisotropy, which requires a higher energy input than the STT-induced switching where the STT competes against the damping.' That is the mechanism-level reason SOT is not automatically lower-energy than STT."
+  ]
+ },
+ {
+  "id": "sot_parveen_islped2017_45nm_proposed",
+  "citation": "Farhana Parveen, Shaahin Angizi, Zhezhi He, Deliang Fan, \"Low Power In-Memory Computing Based on Dual-Mode SOT-MRAM,\" 2017 IEEE/ACM International Symposium on Low Power Electronics and Design (ISLPED), Taipei, Taiwan, 2017, pp. 1-6",
+  "doi": "10.1109/ISLPED.2017.8009200",
+  "technology": "SOT-MRAM (GSHE-driven, in-plane MTJ, dual-mode memory/in-memory-logic)",
+  "process_node_nm": 45,
+  "temperature_K": 300,
+  "cell_levels": "SLC",
+  "device_geometry": "Verbatim, Table I + Sec. II-B/IV: '(W\u00d7L)MTJ = 80nm\u00d740nm'; '(t\u00d7W\u00d7L)FM = 1.5nm\u00d780nm\u00d740nm'; 'tMgO = 1.5 nm'; '(t\u00d7W\u00d7L)SHM = 2.8nm\u00d780nm\u00d750nm'; SHM material Tungsten (W); 'the ferromagnets in MTJ have in-plane Magnetic Anisotropy (IMA)'. Cell is a 3-terminal SOT device with SEPARATE read and write paths: 'Each cell is associated with the Write Word Line (WWL), Read Word Line (RWL), Write Bit Line (WBL), Read Bit Line (RBL), Source Line (SL) and Compute Line (CL)' -> 2T1M base cell (one write access transistor, one read access transistor). The proposed dual-mode variant adds one shared compute-control transistor per PAIR of vertically adjacent cells: 'an additional transistor is inserted with each two SOT-MRAM cells ... This dual-mode functionalism comes up with the trade-off of 14.29% area overhead due to the additional transistor' -> effectively 2.5T1M per bit. Array footprint: 'the area overhead of the proposed SOT-MRAM memory model is 12.3% more than standard STT-MRAM design owning to the add-on computing transistors but still 26% less than SRAM design.' No per-cell area in F^2 or nm^2 is given anywhere in the paper.",
+  "fields": {
+   "MemCellType": {
+    "value": "MRAM",
+    "unit": null,
+    "provenance": "Title/Sec. II-B: GSHE-driven SOT-MRAM",
+    "kind": "reported"
+   },
+   "MemCellLevel": {
+    "value": "SLC",
+    "unit": null,
+    "provenance": "Sec. II-B: two resistance states RP/RAP encode logic 0/1 only",
+    "kind": "reported"
+   },
+   "ProcessNode": {
+    "value": 45,
+    "unit": "nm",
+    "provenance": "Sec. IV: '45nm North Carolina State University (NCSU) Product Development Kit (PDK) library [20] is used in SPICE'; Sec. V: 'sample memory capacity of 2MB in 45nm process node'",
+    "kind": "reported"
+   },
+   "Temperature (K)": {
+    "value": 300,
+    "unit": "K",
+    "provenance": "NOT STATED anywhere in the paper. Assumed 300 K because DESTINY/NVSim requires -Temperature and the LLG/NEGF modelling is implicitly room temperature.",
+    "kind": "assumed"
+   },
+   "ResistanceOn (ohm)": {
+    "value": 30900,
+    "unit": "ohm",
+    "provenance": "Sec. II-B: 'RP = ~30.9 kOhm'",
+    "kind": "reported"
+   },
+   "ResistanceOff (ohm)": {
+    "value": 85900,
+    "unit": "ohm",
+    "provenance": "Sec. II-B: 'RAP = ~85.9 kOhm'. Self-consistency check against the stated TMR: 30.9k x (1 + 178/100) = 85.9k -> agrees exactly, so both resistances and TMR are mutually consistent.",
+    "kind": "reported"
+   },
+   "ReadMode": {
+    "value": "current",
+    "unit": null,
+    "provenance": "Sec. III-A-1: 'a read current is flown from the selected MTJ to the ground, generating a sense voltage at input of SA'; 'A current mode Sense Amplifier (SA) [17] is connected to the RBLs'",
+    "kind": "reported"
+   },
+   "ReadCurrent (uA)": {
+    "value": 3,
+    "unit": "uA",
+    "provenance": "Sec. IV: '~3uA sense current is flown through the IMA MTJ during read'",
+    "kind": "reported"
+   },
+   "ReadPower (uW)": {
+    "value": 13.8,
+    "unit": "uW",
+    "provenance": "Table III, row 'Avg. Read Power (uW)', column 'Proposed design'",
+    "kind": "reported"
+   },
+   "SetMode": {
+    "value": "voltage",
+    "unit": null,
+    "provenance": "Sec. III-A-1: write is driven by 'the voltage driver (V1) connected with WBL1 ... set to positive (/negative) write voltage'. Current magnitude is also reported (see SetCurrent).",
+    "kind": "reported"
+   },
+   "SetCurrent (uA)": {
+    "value": 120,
+    "unit": "uA",
+    "provenance": "Sec. IV: 'The current required to be injected through the SHM for switching the MTJ resistance from P->AP or AP->P within 1ns is found to be ~120uA'. DIRECTION MAPPING: this single figure is quoted for BOTH directions, i.e. the SOT write is symmetric in current magnitude. Set is taken as P->AP (write logic '1', R goes to RAP).",
+    "kind": "reported"
+   },
+   "SetVoltage (V)": {
+    "value": 0.4,
+    "unit": "V",
+    "provenance": "Sec. V: 'its low write voltage (~400mv for \"1\" and ~-320mv for \"0\")'; Table III 'Write Voltage (V) = 0.4/-0.32'. Logic '1' = RAP = P->AP = Set -> +0.4 V. Magnitude given here; the sign is the WBL driver polarity.",
+    "kind": "reported"
+   },
+   "SetPulse (ns)": {
+    "value": 1,
+    "unit": "ns",
+    "provenance": "Table III 'Write speed (ns) = 1ns' for the proposed design; Sec. IV 'switching ... within 1ns'. This is the switching time at 120 uA, which the paper equates to the write pulse.",
+    "kind": "reported"
+   },
+   "SetEnergy (pJ)": {
+    "value": 0.0496,
+    "unit": "pJ",
+    "provenance": "DERIVED: E = P x t = 49.6 uW (Table III, 'Avg. Write Power', proposed design) x 1 ns (Table III, 'Write speed') = 49.6e-6 W x 1e-9 s = 4.96e-14 J = 0.0496 pJ = 49.6 fJ. CAVEAT: the paper does not define the averaging window for 'Avg. Write Power'; if it is averaged over a longer access cycle than 1 ns this underestimates the true pulse energy. Use with suspicion.",
+    "kind": "derived"
+   },
+   "ResetMode": {
+    "value": "voltage",
+    "unit": null,
+    "provenance": "Same driver mechanism as Set, opposite WBL polarity (Sec. III-A-1)",
+    "kind": "reported"
+   },
+   "ResetCurrent (uA)": {
+    "value": 120,
+    "unit": "uA",
+    "provenance": "Sec. IV, same sentence as SetCurrent: '~120uA' covers AP->P as well as P->AP. Reset = AP->P (write logic '0', R goes to RP). Switching is SYMMETRIC in current.",
+    "kind": "reported"
+   },
+   "ResetVoltage (V)": {
+    "value": 0.32,
+    "unit": "V",
+    "provenance": "Sec. V / Table III: '~-320mv for \"0\"'. Logic '0' = RP = AP->P = Reset. Magnitude 0.32 V, driver polarity negative. NOTE: write is ASYMMETRIC IN VOLTAGE (0.40 V vs 0.32 V) even though it is symmetric in current, because the two polarities see different series resistance through the SHM/access-transistor stack.",
+    "kind": "reported"
+   },
+   "ResetPulse (ns)": {
+    "value": 1,
+    "unit": "ns",
+    "provenance": "Table III 'Write speed (ns) = 1ns'; Sec. IV states 1 ns for both directions",
+    "kind": "reported"
+   },
+   "ResetEnergy (pJ)": {
+    "value": 0.0496,
+    "unit": "pJ",
+    "provenance": "DERIVED, same arithmetic as SetEnergy: 49.6 uW x 1 ns = 0.0496 pJ. The paper reports only one average write power, not per-direction, so Set and Reset energies cannot be separated.",
+    "kind": "derived"
+   },
+   "AccessType": {
+    "value": "CMOS",
+    "unit": null,
+    "provenance": "Sec. IV: 'properly sizing the write access transistors associated with write word lines (WWL)'; 45 nm NCSU PDK CMOS",
+    "kind": "reported"
+   },
+   "AccessCMOSWidth (F)": {
+    "value": 5.33,
+    "unit": "F",
+    "provenance": "DERIVED from Table III: 'Write access transistor width = 240nm' (proposed design). 240 nm / 45 nm = 5.333 F. This is the WRITE access transistor. The READ access transistor is separate: Table III 'Read access transistor width = 90nm' = 90/45 = 2.0 F. DESTINY has only one -AccessCMOSWidth key; use 5.33 F for a write-limited model and note 2.0 F for the read path.",
+    "kind": "derived"
+   }
+  },
+  "array_level_results": [
+   {
+    "capacity": "2 MB",
+    "tool": "modified self-consistent NVSim + in-house C++",
+    "read_latency_ns": 1.375,
+    "write_latency_ns": 1.382,
+    "read_energy_pJ": 628.06,
+    "write_energy_pJ": 601.91,
+    "leakage_mW": 742.91,
+    "area_mm2": 5.296,
+    "provenance": "Table IV, column 'Proposed SOT-MRAM'. Latencies converted from ps: 1375 ps = 1.375 ns; 1382 ps = 1.382 ns. Also reported: read bandwidth 67.78 GB/s, write bandwidth 58.96 GB/s."
+   },
+   {
+    "capacity": "2 MB",
+    "tool": "modified self-consistent NVSim + in-house C++",
+    "read_latency_ns": 1.31,
+    "write_latency_ns": 10.32,
+    "read_energy_pJ": 606.66,
+    "write_energy_pJ": 1054,
+    "leakage_mW": 804.12,
+    "area_mm2": 4.632,
+    "provenance": "Table IV, column 'Standard STT-MRAM' (baseline, same 45 nm / 2 MB configuration). 1310 ps / 10320 ps. Bandwidth 68.43 / 6.36 GB/s."
+   },
+   {
+    "capacity": "2 MB",
+    "tool": "modified self-consistent NVSim + in-house C++",
+    "read_latency_ns": 0.69773,
+    "write_latency_ns": 0.4184,
+    "read_energy_pJ": 679.77,
+    "write_energy_pJ": 651.9,
+    "leakage_mW": 3137,
+    "area_mm2": 7.157,
+    "provenance": "Table IV, column 'SRAM' (baseline). 697.73 ps / 418.4 ps. Bandwidth 805.05 / 681.92 GB/s."
+   }
+  ],
+  "unmapped_parameters": [
+   "LLG/LLGS micromagnetic parameters (Table I), not DESTINY .cell keys: damping coefficient alpha = 0.0122; demagnetisation factors Dx,Dy,Dz = 0.066, 0.911, 0.022; saturation magnetisation Ms = 0.85e6 A/m; SHM resistivity rho_SHM = 200 uOhm.cm; spin Hall angle theta_SHM = 0.3; spin flip length lambda_sf = 1.4e-9 m; gyromagnetic ratio gamma = 1.76e11 Am^2/Js.",
+   "Read access transistor width = 90 nm = 2.0 F (Table III) - second transistor, no DESTINY key.",
+   "Retention: 'almost 10 years' retention time' (Sec. V, attributed to ref [7]).",
+   "In-memory logic reference resistances: R_AND set between 2*R_AP and R_P+R_AP; R_OR set between 2*R_P and R_P+R_AP (Table II). Not a memory-cell key.",
+   "Application-level AES results (Table V, fixed-voltage scaled from 45 nm to 32 nm using 1/S^2 for area and 1/S for energy, S = 45/32): this work 1.97 nJ, 3168 cycles, 30.69 um^2; vs GPP 460 nJ / 2309 cyc / 2.5e6 um^2; ASIC 6.6 nJ / 336 cyc / 4400 um^2; CMOL 10.3 nJ / 470 cyc / 320 um^2; DW-AES 2.4 nJ / 1022 cyc / 78 um^2.",
+   "DERIVED array density (NOT a cell area - includes all peripheral circuitry): 5.296 mm^2 / (2 MB = 16777216 bits) = 3.157e-7 mm^2/bit = 0.3157 um^2/bit = 315672 nm^2/bit; at F = 45 nm, F^2 = 2025 nm^2, so 315672/2025 = 155.9 F^2 per bit at the ARRAY level. Do NOT use this as -CellArea; array efficiency is unstated."
+  ],
+  "warnings": [
+   "NO CELL AREA IS REPORTED in F^2, nm^2 or um^2. Only array area (mm^2) and relative overheads. -CellArea and -CellAspectRatio cannot be filled from this paper without an assumption.",
+   "INTERNAL INCONSISTENCY: Sec. V text claims the proposed SOT-MRAM array is '12.3% more than standard STT-MRAM design', but Table IV gives 5.296 / 4.632 = 1.1434, i.e. 14.34% more. The '26% less than SRAM' claim does check out (5.296/7.157 = 0.740).",
+   "PHYSICALLY SUSPECT: Table IV gives SOT read dynamic energy (628.06 pJ) HIGHER than write dynamic energy (601.91 pJ) for the same 2 MB array, despite the cell read current being 3 uA vs 120 uA write. The same inversion appears for SRAM (679.77 read vs 651.9 write). This points to a read-path/peripheral-dominated NVSim configuration, or a column swap. Do not treat these as clean cell-level energies.",
+   "LEAKAGE SCALING: 742.91 mW leakage for a 2 MB non-volatile array at 45 nm is very high (>350 uW per KB) and is not broken down. It is peripheral/SA leakage, not cell leakage; it will not scale the way a DESTINY sweep expects.",
+   "No -MinSenseVoltage, -ReadVoltage, -ReadPulse or -VoltageDropAccessDevice is given.",
+   "The 120 uA / 1 ns switching point and the 0.4 V / -0.32 V write voltages are stated in different sections and are not explicitly cross-checked by the authors; the implied SHM path resistance (0.4 V / 120 uA = 3.3 kOhm) is plausible for the 2.8x80x50 nm W strip but is not stated."
+  ]
+ },
+ {
+  "id": "stt_parveen_islped2017_45nm_baseline",
+  "citation": "Farhana Parveen, Shaahin Angizi, Zhezhi He, Deliang Fan, \"Low Power In-Memory Computing Based on Dual-Mode SOT-MRAM,\" ISLPED 2017, pp. 1-6 - Table III baseline column, values attributed to their ref [21]",
+  "doi": "10.1109/ISLPED.2017.8009200",
+  "technology": "STT-MRAM (standard 1T1M baseline as reproduced in Table III)",
+  "process_node_nm": 45,
+  "temperature_K": 300,
+  "cell_levels": "SLC",
+  "device_geometry": "Standard 2-terminal MTJ, single shared read/write path -> 1T1M. Table III lists a single 500 nm access transistor spanning both the 'Write access transistor width' and 'Read access transistor width' rows for this column, confirming one shared transistor. No MTJ dimensions or cell area given for this baseline.",
+  "fields": {
+   "MemCellType": {
+    "value": "MRAM",
+    "unit": null,
+    "provenance": "Table III header 'Standard STT MRAM [21]'",
+    "kind": "reported"
+   },
+   "ProcessNode": {
+    "value": 45,
+    "unit": "nm",
+    "provenance": "Sec. IV/V: all Table III/IV comparisons are at 45 nm NCSU PDK",
+    "kind": "reported"
+   },
+   "Temperature (K)": {
+    "value": 300,
+    "unit": "K",
+    "provenance": "Not stated; assumed 300 K (mandatory DESTINY key).",
+    "kind": "assumed"
+   },
+   "SetVoltage (V)": {
+    "value": 1.0,
+    "unit": "V",
+    "provenance": "Table III, 'Write Voltage (V)' = 1 for Standard STT MRAM [21]. Single value quoted, no polarity split.",
+    "kind": "reported"
+   },
+   "ResetVoltage (V)": {
+    "value": 1.0,
+    "unit": "V",
+    "provenance": "Table III, same single entry (1 V). The paper does not resolve P->AP vs AP->P for this baseline, so asymmetry cannot be recovered.",
+    "kind": "reported"
+   },
+   "SetPulse (ns)": {
+    "value": 10,
+    "unit": "ns",
+    "provenance": "Table III, 'Write speed (ns)' = '>10ns'. LOWER BOUND ONLY - the paper writes it as a strict inequality. Table IV gives 10320 ps array write latency for the same baseline, consistent with ~10 ns.",
+    "kind": "reported"
+   },
+   "ResetPulse (ns)": {
+    "value": 10,
+    "unit": "ns",
+    "provenance": "Table III '>10ns' - lower bound, same caveat as SetPulse.",
+    "kind": "reported"
+   },
+   "ReadPower (uW)": {
+    "value": 30.71,
+    "unit": "uW",
+    "provenance": "Table III, 'Avg. Read Power (uW)'",
+    "kind": "reported"
+   },
+   "AccessType": {
+    "value": "CMOS",
+    "unit": null,
+    "provenance": "Table III access transistor width entry",
+    "kind": "reported"
+   },
+   "AccessCMOSWidth (F)": {
+    "value": 11.11,
+    "unit": "F",
+    "provenance": "DERIVED from Table III: access transistor width 500 nm / 45 nm = 11.11 F. Single shared read+write transistor.",
+    "kind": "derived"
+   }
+  },
+  "array_level_results": [
+   {
+    "capacity": "2 MB",
+    "tool": "modified self-consistent NVSim + in-house C++",
+    "read_latency_ns": 1.31,
+    "write_latency_ns": 10.32,
+    "read_energy_pJ": 606.66,
+    "write_energy_pJ": 1054,
+    "leakage_mW": 804.12,
+    "area_mm2": 4.632,
+    "provenance": "Table IV, 'Standard STT-MRAM' column"
+   }
+  ],
+  "unmapped_parameters": [
+   "Avg. Write Power = 266.44 uW (Table III). Deriving a write energy from this requires the pulse width, which is only bounded ('>10ns'), so no defensible SetEnergy/ResetEnergy can be produced."
+  ],
+  "warnings": [
+   "Second-hand: these are baseline numbers reproduced from the authors' ref [21], not independently characterised here.",
+   "No resistances, TMR, cell area or switching currents are given for this baseline. Only voltage, power, transistor width and speed.",
+   "Write speed is a strict lower bound ('>10ns'), not a value. Using 10 ns as -SetPulse is optimistic."
+  ]
+ },
+ {
+  "id": "sot_parveen_islped2017_45nm_1r1w_baseline",
+  "citation": "Farhana Parveen, Shaahin Angizi, Zhezhi He, Deliang Fan, \"Low Power In-Memory Computing Based on Dual-Mode SOT-MRAM,\" ISLPED 2017, pp. 1-6 - Table III baseline column, values attributed to their ref [7] (Y. Seo et al., IEEE JETCAS 6(3):293-304, 2016)",
+  "doi": "10.1109/ISLPED.2017.8009200",
+  "technology": "SOT-MRAM (contemporary 1R/1W dual-port design, baseline)",
+  "process_node_nm": 45,
+  "temperature_K": 300,
+  "cell_levels": "SLC",
+  "device_geometry": "1R/1W dual-port SOT cell: separate read and write access transistors (2T1M), both 180 nm wide at the 45 nm node (= 4.0 F each). No MTJ dimensions or cell area given.",
+  "fields": {
+   "MemCellType": {
+    "value": "MRAM",
+    "unit": null,
+    "provenance": "Table III header '1R/1W SOT MRAM [7]'",
+    "kind": "reported"
+   },
+   "ProcessNode": {
+    "value": 45,
+    "unit": "nm",
+    "provenance": "Sec. IV: all Table III comparisons at 45 nm",
+    "kind": "reported"
+   },
+   "Temperature (K)": {
+    "value": 300,
+    "unit": "K",
+    "provenance": "Not stated; assumed 300 K (mandatory DESTINY key).",
+    "kind": "assumed"
+   },
+   "SetVoltage (V)": {
+    "value": 0.3,
+    "unit": "V",
+    "provenance": "Table III, 'Write Voltage (V)' = '0.3/-0.2'. Positive polarity (0.3 V) mapped to Set = P->AP by analogy with the proposed design's mapping in Sec. III-A-1.",
+    "kind": "reported"
+   },
+   "ResetVoltage (V)": {
+    "value": 0.2,
+    "unit": "V",
+    "provenance": "Table III, negative-polarity entry of '0.3/-0.2'. Magnitude 0.2 V. Write is ASYMMETRIC IN VOLTAGE (0.3 V vs 0.2 V).",
+    "kind": "reported"
+   },
+   "SetPulse (ns)": {
+    "value": 10,
+    "unit": "ns",
+    "provenance": "Table III, 'Write speed (ns)' = 10ns",
+    "kind": "reported"
+   },
+   "ResetPulse (ns)": {
+    "value": 10,
+    "unit": "ns",
+    "provenance": "Table III, 'Write speed (ns)' = 10ns",
+    "kind": "reported"
+   },
+   "ReadPower (uW)": {
+    "value": 10.86,
+    "unit": "uW",
+    "provenance": "Table III, 'Avg. Read Power (uW)'",
+    "kind": "reported"
+   },
+   "AccessType": {
+    "value": "CMOS",
+    "unit": null,
+    "provenance": "Table III",
+    "kind": "reported"
+   },
+   "AccessCMOSWidth (F)": {
+    "value": 4.0,
+    "unit": "F",
+    "provenance": "DERIVED: Table III write access transistor width 180 nm / 45 nm = 4.0 F. The read access transistor is also 180 nm = 4.0 F (Table III).",
+    "kind": "derived"
+   }
+  },
+  "array_level_results": [],
+  "unmapped_parameters": [
+   "Avg. Write Power = 17.80 uW (Table III). E = 17.80 uW x 10 ns = 0.178 pJ if the averaging window equals the pulse - NOT asserted by the paper, so left out of fields."
+  ],
+  "warnings": [
+   "Second-hand baseline from ref [7]. No resistances, TMR, cell area or currents.",
+   "This baseline is the cleanest apples-to-apples SOT-vs-SOT contrast in the paper: 2T1M at 180/180 nm and 10 ns write, versus the proposed 240/90 nm and 1 ns write at 2.79x the average write power."
+  ]
+ },
+ {
+  "id": "stt_saha_jmmm2022_40nm",
+  "citation": "Rajesh Saha, Yogendra Pratap Pundir, Pankaj Kumar Pal, \"Comparative analysis of STT and SOT based MRAMs for last level caches,\" Journal of Magnetism and Magnetic Materials, 551 (2022) 169161",
+  "doi": "10.1016/j.jmmm.2022.169161",
+  "technology": "STT-MRAM (perpendicular MTJ, 1T-1MTJ, vertical GAA-FET select device)",
+  "process_node_nm": 40,
+  "temperature_K": 300,
+  "cell_levels": "SLC",
+  "device_geometry": "Verbatim: 'Areas of MTJ (AMTJ) = 20 x 20 pi (nm2)' (Table 2), i.e. a circular pMTJ of radius 20 nm / diameter 40 nm, area 400*pi = 1256.6 nm^2. 'Free or sensing Layer Thickness = 1.4 nm'; 'Oxide Thickness = 1.1 nm'; 'Transistor Length (Lg) = 120 nm'. Sec. 3.1: '1T-1MTJ bit-cell of STT-MRAM consists of one transistor and one MTJ' -> 1T1M. Sec. 2: 'the considered vertical cylindrical GAA-FET (D = 40 nm and L = 120 nm) is optimized ... by equalizing the diameter (D = F = 40 nm) of pMTJ and GAA transistor to acquire footprint area up to 4F2 per bit cell in case of STT-MRAM'. Sec. 3.1 layout: 'It is seen that chip area 16F2 (lambda = 2F, where F is a feature size of a transistor) is utilized by it.' THESE TWO STATEMENTS CONFLICT - see warnings.",
+  "fields": {
+   "MemCellType": {
+    "value": "MRAM",
+    "unit": null,
+    "provenance": "Sec. 3.1",
+    "kind": "reported"
+   },
+   "MemCellLevel": {
+    "value": "SLC",
+    "unit": null,
+    "provenance": "Sec. 3.1: two states P (logic 0) / AP (logic 1)",
+    "kind": "reported"
+   },
+   "ProcessNode": {
+    "value": 40,
+    "unit": "nm",
+    "provenance": "Sec. 2: 'equalizing the diameter (D = F = 40 nm) of pMTJ and GAA transistor'. F = 40 nm is the feature size used for all F^2 areas.",
+    "kind": "reported"
+   },
+   "Temperature (K)": {
+    "value": 300,
+    "unit": "K",
+    "provenance": "NOT STATED anywhere. Assumed 300 K (mandatory key); the thermal-stability factor Delta = 43 for 10-year retention is a room-temperature convention.",
+    "kind": "assumed"
+   },
+   "CellArea (F^2)": {
+    "value": 16,
+    "unit": "F^2",
+    "provenance": "Table 4, row 'STT-MRAM', column 'Cell-Area (F2)' = 16. Also Sec. 3.1: 'chip area 16F2 (lambda = 2F)'. At F = 40 nm this is 16 x 1600 nm^2 = 25600 nm^2 = 0.0256 um^2.",
+    "kind": "reported"
+   },
+   "ResistanceOn (ohm)": {
+    "value": 3180,
+    "unit": "ohm",
+    "provenance": "Sec. 2: 'it is observed that RP and RAP value are 3.18 kOhm and 7.98 kOhm respectively' (read off Fig. 2, R-V characteristic). Cross-check against the stated RA product: R_P = RA/A = 4 Ohm.um^2 / 1.2566e-3 um^2 = 3183 Ohm - agrees to 0.1%.",
+    "kind": "reported"
+   },
+   "ResistanceOff (ohm)": {
+    "value": 7980,
+    "unit": "ohm",
+    "provenance": "Sec. 2, Fig. 2. Cross-check against TMR: 3180 x (1 + 150/100) = 7950 Ohm vs 7980 stated -> 0.4% discrepancy, i.e. the actual plotted TMR is (7980-3180)/3180 = 150.9%. Both are internally consistent to within read-off precision.",
+    "kind": "reported"
+   },
+   "ReadMode": {
+    "value": "voltage",
+    "unit": null,
+    "provenance": "Sec. 4.1: the read is resolved by 'sense amplifier to decode the TMR ... with resolution of 50 mV', i.e. a voltage-sensing scheme at the array level.",
+    "kind": "reported"
+   },
+   "MinSenseVoltage (mV)": {
+    "value": 50,
+    "unit": "mV",
+    "provenance": "Sec. 4.1: 'The operation of sense amplifier to decode the TMR is incorporated at architectural level for read operation with resolution of 50 mV.'",
+    "kind": "reported"
+   },
+   "SetMode": {
+    "value": "current",
+    "unit": null,
+    "provenance": "Sec. 3.1: switching is driven by charge/spin current through the MTJ.",
+    "kind": "reported"
+   },
+   "SetCurrent (uA)": {
+    "value": 62.1,
+    "unit": "uA",
+    "provenance": "DERIVED, LOW CONFIDENCE: I = P / V = 62.10 uW (Table 4, 'Max. Power Dissipation', STT-MRAM row) / 1 V (Table 2, 'Supply Voltage' = 1 V) = 62.10 uA. CAVEAT: Table 4 labels this MAX power, not average, and the full VDD is not necessarily dropped across the MTJ+access stack. The paper gives NO explicit STT switching current. Treat as an order-of-magnitude bound, not a cell parameter.",
+    "kind": "derived"
+   },
+   "SetVoltage (V)": {
+    "value": 1.0,
+    "unit": "V",
+    "provenance": "Table 2, 'Supply Voltage' = 1 V. This is the rail, not a measured switching voltage.",
+    "kind": "reported"
+   },
+   "SetPulse (ns)": {
+    "value": 5,
+    "unit": "ns",
+    "provenance": "Sec. 4.1: 'The pulse width of 5 ns is considered/adopted for both STT and SOT to work in the precisional regime other than thermal assisted switching (>10 ns).' NOTE: this is the applied PULSE WIDTH, which is distinct from the measured write ACCESS TIME of 436 ps (Table 4).",
+    "kind": "reported"
+   },
+   "ResetMode": {
+    "value": "current",
+    "unit": null,
+    "provenance": "Sec. 3.1",
+    "kind": "reported"
+   },
+   "ResetPulse (ns)": {
+    "value": 5,
+    "unit": "ns",
+    "provenance": "Sec. 4.1, same 5 ns pulse applied to both directions.",
+    "kind": "reported"
+   },
+   "AccessType": {
+    "value": "CMOS",
+    "unit": null,
+    "provenance": "Sec. 2: vertical gate-all-around FET select device (a CMOS transistor, non-planar).",
+    "kind": "reported"
+   },
+   "AccessCMOSWidth (F)": {
+    "value": 1.0,
+    "unit": "F",
+    "provenance": "DERIVED from geometry: the select device is a vertical cylindrical GAA-FET of diameter D = 40 nm = F (Sec. 2), so its lateral footprint dimension is 1 F (footprint 4F^2 including spacing). NOTE: a vertical GAA has effective channel width pi*D = 125.7 nm = 3.14 F, which is the electrically relevant width. DESTINY's planar -AccessCMOSWidth model does not represent this device; do not port it naively.",
+    "kind": "derived"
+   }
+  },
+  "array_level_results": [
+   {
+    "capacity": "512 KB to 128 MB (sweep)",
+    "tool": "DESTINY",
+    "read_latency_ns": null,
+    "write_latency_ns": null,
+    "read_energy_pJ": null,
+    "write_energy_pJ": null,
+    "leakage_mW": null,
+    "area_mm2": null,
+    "provenance": "Figs. 7(a),(b), 8(a),(b), 9(a),(b) - area, leakage power, read/write latency, read/write energy per access vs L3C capacity. ALL VALUES ARE PLOTTED ONLY; the paper contains no numeric array-level table, so no absolute figures can be extracted without digitising the plots. Only relative statements are given in text (see unmapped_parameters)."
+   }
+  ],
+  "unmapped_parameters": [
+   "Write Access Time = 436 ps (Table 4) - not a DESTINY .cell key (it is a simulated cell-level result, and it is 11x shorter than the 5 ns applied pulse).",
+   "Max. Power Dissipation = 62.10 uW (Table 4).",
+   "Write Margin = 10.80 uA (Table 4) - the paper does not define this quantity; units of current for a 'margin' are unusual.",
+   "Thermal stability Delta = 43, 'for considering the retention time approximation upto 10 years' (Sec. 4.1).",
+   "RA product = 4 Ohm.um^2, TMR0 = 150% at zero bias (Sec. 2 and Table 2).",
+   "GAA-FET driver characteristics (Table 3): Vth = 298.98 mV, ION = 519.50 uA/um, IOFF = 0.184 nA/um, SS = 80.58 mV/dec, DIBL = 36.01 mV/V, VDD = 1 V, Lg = 120 nm, D = 40 nm. Sec. 2 also quotes a per-device 'Ion = 65 uA'.",
+   "Relative array-level results (text, Secs. 4.2 and 5): STT-MRAM cache uses 4-37% LESS chip area and 2-48% LESS leakage than SOT-MRAM cache; SOT-MRAM cache uses 4-35% less chip area and 74-94% less leakage than SRAM; SOT read latency 10-50% lower than STT below 4 MB but 10-42% HIGHER above 4 MB; SOT write latency 13-59% lower than STT; SOT read energy 25-53% lower and write energy 3-15% lower than STT; vs SRAM above 8 MB, SOT read latency 26-88% lower and write latency 13-91% lower; vs SRAM above 16 MB, SOT read energy 9-18% lower and write energy 10-36% lower.",
+   "Literature survey values (Table 1, from the authors' refs [1,8,12,16], NOT their own simulation): STT-MRAM area 4-8 F^2, write latency 3-10 ns, read latency 1.2 ns, power 133.1 uW; SOT-MRAM area 24 F^2, write latency 0.5 ns, read latency 1.13 ns, power 35.35 uW."
+  ],
+  "warnings": [
+   "CELL AREA CONTRADICTS ITSELF WITHIN THE PAPER. Sec. 2 says the vertical GAA select device gives a '4F2 per bit cell' footprint for STT-MRAM; Sec. 3.1 and Table 4 both say the STT layout is 16 F^2; Table 1 (literature survey) says STT is 4-8 F^2. Three different numbers for the same quantity. The 16 F^2 from Table 4 is the one the paper's own architectural results are built on and is the value to use, but the disagreement is unresolved by the authors.",
+   "NO EXPLICIT STT SWITCHING CURRENT IS GIVEN. The SetCurrent above is a power/voltage quotient, not a reported value. -ResetCurrent is left empty rather than guessed at an asymmetry ratio.",
+   "SWITCHING IS EXPLICITLY ASYMMETRIC: Sec. 3.1, 'the amount of charge current is required more to switch from P to AP as compared to AP to P (asymmetric behavior of MTJ)'. The paper gives no ratio, so Set (P->AP) and Reset (AP->P) cannot be separated. Any symmetric .cell built from this will understate P->AP.",
+   "PULSE WIDTH vs ACCESS TIME: the 5 ns figure is an applied pulse; the 436 ps figure is a measured write access time. They are not the same quantity and must not be interchanged in -SetPulse.",
+   "Array-level results exist only as figures. No numeric validation targets are recoverable without plot digitisation.",
+   "No cell aspect ratio, read current/voltage, read pulse, set/reset energy or access-device voltage drop is reported."
+  ]
+ },
+ {
+  "id": "sot_saha_jmmm2022_40nm_theta1p4",
+  "citation": "Rajesh Saha, Yogendra Pratap Pundir, Pankaj Kumar Pal, \"Comparative analysis of STT and SOT based MRAMs for last level caches,\" Journal of Magnetism and Magnetic Materials, 551 (2022) 169161",
+  "doi": "10.1016/j.jmmm.2022.169161",
+  "technology": "SOT-MRAM (SOT-MTJ on heavy metal, spin Hall angle theta_SHE = 1.4 - the paper's headline configuration)",
+  "process_node_nm": 40,
+  "temperature_K": 300,
+  "cell_levels": "SLC",
+  "device_geometry": "Verbatim, Table 2: 'Areas of MTJ (AMTJ) = 20 x 20 pi (nm2)' (circular MTJ, 40 nm diameter, 1256.6 nm^2); 'Areas of Heavy Metal (AHM) = 80 nm x 100 nm' (= 8000 nm^2, i.e. the HM strip is 2F x 2.5F); 'Free or sensing Layer Thickness = 1.4 nm'; 'Oxide Thickness = 1.1 nm'; 'Transistor Length (Lg) = 120 nm'; 'Hext = 600 A/m' (in-plane assist field required, STT needs none); 'Spin Hall Angle (theta) = 1.4'. Sec. 3.2: 'The bit-cell consists of two driving transistors with SOT-MTJ that is T1 and T2 for read and write operations respectively' -> 2T1M with separate RWL and WWL. 'Fig. 5(c) shows the layout view of SOT-MRAM cell that required an area of 32F2.' Sec. 4.2 attributes the extra area to 'more number of terminal pads (I/O) with two transistors (T1 and T2) having separate word lines for read and write'.",
+  "fields": {
+   "MemCellType": {
+    "value": "MRAM",
+    "unit": null,
+    "provenance": "Sec. 3.2",
+    "kind": "reported"
+   },
+   "MemCellLevel": {
+    "value": "SLC",
+    "unit": null,
+    "provenance": "Sec. 3.2, two-state P/AP",
+    "kind": "reported"
+   },
+   "ProcessNode": {
+    "value": 40,
+    "unit": "nm",
+    "provenance": "Sec. 2, F = 40 nm",
+    "kind": "reported"
+   },
+   "Temperature (K)": {
+    "value": 300,
+    "unit": "K",
+    "provenance": "Not stated; assumed 300 K (mandatory key).",
+    "kind": "assumed"
+   },
+   "CellArea (F^2)": {
+    "value": 32,
+    "unit": "F^2",
+    "provenance": "Table 4, 'SOT-MRAM (theta_SHE = 1.4)', 'Cell-Area (F2)' = 32; corroborated by Sec. 3.2 layout text '32F2'. At F = 40 nm: 32 x 1600 = 51200 nm^2 = 0.0512 um^2. Exactly 2x the STT cell (16 F^2) in this paper.",
+    "kind": "reported"
+   },
+   "ResistanceOn (ohm)": {
+    "value": 3180,
+    "unit": "ohm",
+    "provenance": "Sec. 2, Fig. 2 - the same MTJ stack (RA = 4 Ohm.um^2, TMR0 = 150%) is used for both STT and SOT in this paper. NOTE: this is the MTJ resistance only; the paper states the SOT cell additionally carries R_OTHER from the heavy metal, which is not quantified.",
+    "kind": "reported"
+   },
+   "ResistanceOff (ohm)": {
+    "value": 7980,
+    "unit": "ohm",
+    "provenance": "Sec. 2, Fig. 2, shared MTJ stack with the STT case.",
+    "kind": "reported"
+   },
+   "ReadMode": {
+    "value": "voltage",
+    "unit": null,
+    "provenance": "Sec. 4.1, 50 mV sense-amplifier resolution",
+    "kind": "reported"
+   },
+   "MinSenseVoltage (mV)": {
+    "value": 50,
+    "unit": "mV",
+    "provenance": "Sec. 4.1",
+    "kind": "reported"
+   },
+   "SetMode": {
+    "value": "current",
+    "unit": null,
+    "provenance": "Sec. 3.2: charge current through the heavy metal generates the spin current that switches the free layer.",
+    "kind": "reported"
+   },
+   "SetCurrent (uA)": {
+    "value": 64,
+    "unit": "uA",
+    "provenance": "Sec. 2: 'we have now adopted the theta_SHE of 1.4 for the experiment which offers the threshold current around 64 uA' (from Fig. 3, threshold current vs theta_SHE). DIRECTION MAPPING: Sec. 4.1 states 'SOT-MRAMs is also have symmetric write operation for AP to P and vice versa due to its switching mechanism (SHE)', so the same 64 uA applies to Set (P->AP) and Reset (AP->P).",
+    "kind": "reported"
+   },
+   "SetVoltage (V)": {
+    "value": 1.0,
+    "unit": "V",
+    "provenance": "Table 2, 'Supply Voltage' = 1 V (rail, not a measured switching voltage).",
+    "kind": "reported"
+   },
+   "SetPulse (ns)": {
+    "value": 5,
+    "unit": "ns",
+    "provenance": "Sec. 4.1: 5 ns applied pulse width for both STT and SOT. Distinct from the 110 ps measured write access time in Table 4.",
+    "kind": "reported"
+   },
+   "ResetMode": {
+    "value": "current",
+    "unit": null,
+    "provenance": "Sec. 3.2",
+    "kind": "reported"
+   },
+   "ResetCurrent (uA)": {
+    "value": 64,
+    "unit": "uA",
+    "provenance": "Sec. 2, same threshold current. SWITCHING IS SYMMETRIC (Sec. 4.1) - unlike the STT cell in the same paper.",
+    "kind": "reported"
+   },
+   "ResetVoltage (V)": {
+    "value": 1.0,
+    "unit": "V",
+    "provenance": "Table 2, supply rail.",
+    "kind": "reported"
+   },
+   "ResetPulse (ns)": {
+    "value": 5,
+    "unit": "ns",
+    "provenance": "Sec. 4.1",
+    "kind": "reported"
+   },
+   "AccessType": {
+    "value": "CMOS",
+    "unit": null,
+    "provenance": "Sec. 3.2: two vertical GAA-FET driving transistors T1 (read) and T2 (write).",
+    "kind": "reported"
+   },
+   "AccessCMOSWidth (F)": {
+    "value": 1.0,
+    "unit": "F",
+    "provenance": "DERIVED from geometry, PER TRANSISTOR: vertical cylindrical GAA-FET, D = 40 nm = 1 F (Sec. 2). There are TWO such transistors in the cell. Effective electrical width per device is pi*D = 3.14 F. DESTINY's single planar -AccessCMOSWidth key cannot express a 2-transistor vertical-GAA cell; the 32 F^2 -CellArea is the parameter that actually carries the 2-transistor cost.",
+    "kind": "derived"
+   }
+  },
+  "array_level_results": [
+   {
+    "capacity": "512 KB to 128 MB (sweep)",
+    "tool": "DESTINY",
+    "read_latency_ns": null,
+    "write_latency_ns": null,
+    "read_energy_pJ": null,
+    "write_energy_pJ": null,
+    "leakage_mW": null,
+    "area_mm2": null,
+    "provenance": "Figs. 7-9, plotted only. No numeric table. See unmapped_parameters of the STT entry for the relative percentages."
+   }
+  ],
+  "unmapped_parameters": [
+   "Write Access Time = 110 ps (Table 4).",
+   "Max. Power Dissipation = 72.40 uW (Table 4).",
+   "Write Margin = 8.5 uA (Table 4).",
+   "Hext = 600 A/m - an external in-plane assist field is required for this SOT cell (Table 2). This is a real system cost with no DESTINY key and no field-generation overhead accounted for anywhere in the paper.",
+   "theta_SHE = 1.4 requires an exotic heavy metal: Sec. 2 notes 'In general, SOT metal allows theta_SHE ranging from 0.1 to 0.5 ... but to achieve switching threshold current to sub-100 uA, it should be greather than 1', citing topological insulator BiSb2Te3 (theta = 1.1-1.5).",
+   "MRAM write endurance '>10^12 cycles' (Sec. 1, citing ref [7] Nishi & Kope, Advances in Non-volatile Memory and Storage Technology, 2019). Generic to MRAM, not split STT/SOT."
+  ],
+  "warnings": [
+   "THE HEADLINE SOT CONFIGURATION IS NOT MANUFACTURABLE WITH CONVENTIONAL HEAVY METALS. theta_SHE = 1.4 is 3-14x above the 0.1-0.5 range the paper itself quotes for ordinary SOT metals, and is only reachable with topological insulators. Every SOT number in Table 4's theta=1.4 row and every SOT curve in Figs. 7-9 inherits this. The theta = 0.3 row (separate entry below) is the realistic device.",
+   "The heavy-metal series resistance R_OTHER is acknowledged (Sec. 4.2: 'an additional resistance (R_OTHER) offered by the Heavy metal (HM) in case of SOT-MRAM' degrades cell-TMR) but is NEVER QUANTIFIED. -ResistanceOn as given is MTJ-only and will overstate SOT read margin in DESTINY.",
+   "Table 1 (literature survey) says SOT-MRAM is 24 F^2; Table 4 (this paper's own layout) says 32 F^2 for theta=1.4 and 96 F^2 for theta=0.3. Three different values.",
+   "PULSE WIDTH vs ACCESS TIME: 5 ns applied pulse vs 110 ps measured write access time - a 45x gap. Do not put 110 ps in -SetPulse.",
+   "Set/Reset energies are not reported and cannot be derived cleanly (the 72.40 uW is labelled MAX power, and the relevant time constant is ambiguous between 110 ps and 5 ns; the two choices differ by 45x)."
+  ]
+ },
+ {
+  "id": "sot_saha_jmmm2022_40nm_theta0p3",
+  "citation": "Rajesh Saha, Yogendra Pratap Pundir, Pankaj Kumar Pal, \"Comparative analysis of STT and SOT based MRAMs for last level caches,\" Journal of Magnetism and Magnetic Materials, 551 (2022) 169161",
+  "doi": "10.1016/j.jmmm.2022.169161",
+  "technology": "SOT-MRAM with conventional heavy metal, spin Hall angle theta_SHE = 0.3 (the physically realistic case)",
+  "process_node_nm": 40,
+  "temperature_K": 300,
+  "cell_levels": "SLC",
+  "device_geometry": "Same MTJ and heavy-metal stack as the theta=1.4 entry (MTJ 20 x 20 pi nm^2 = 40 nm diameter; AHM = 80 nm x 100 nm; free layer 1.4 nm; oxide 1.1 nm; Lg = 120 nm), 2T1M with separate read (T1) and write (T2) transistors. The write transistor must be much larger: Sec. 2, 'If we consider the present storage device (SOT-MTJ) technology (theta_SHE = 0.3) that will require around 200 uA or more current (depending on the heavy metal technologies) ... Therefore, footprint size of SOT-MRAM cell with theta_SHE = 0.3 gets tripled due to the large driving transistor to generate the required threshold current.' Cell area 96 F^2 = 3 x the 32 F^2 of the theta=1.4 cell.",
+  "fields": {
+   "MemCellType": {
+    "value": "MRAM",
+    "unit": null,
+    "provenance": "Sec. 3.2",
+    "kind": "reported"
+   },
+   "MemCellLevel": {
+    "value": "SLC",
+    "unit": null,
+    "provenance": "Sec. 3.2",
+    "kind": "reported"
+   },
+   "ProcessNode": {
+    "value": 40,
+    "unit": "nm",
+    "provenance": "Sec. 2, F = 40 nm",
+    "kind": "reported"
+   },
+   "Temperature (K)": {
+    "value": 300,
+    "unit": "K",
+    "provenance": "Not stated; assumed 300 K (mandatory key).",
+    "kind": "assumed"
+   },
+   "CellArea (F^2)": {
+    "value": 96,
+    "unit": "F^2",
+    "provenance": "Table 4, 'SOT-MRAM (theta_SHE = 0.3)', 'Cell-Area (F2)' = 96. At F = 40 nm: 96 x 1600 = 153600 nm^2 = 0.1536 um^2. This is 6x the STT cell (16 F^2) in the same paper.",
+    "kind": "reported"
+   },
+   "ResistanceOn (ohm)": {
+    "value": 3180,
+    "unit": "ohm",
+    "provenance": "Sec. 2, Fig. 2, shared MTJ stack (MTJ only; heavy-metal R_OTHER not quantified).",
+    "kind": "reported"
+   },
+   "ResistanceOff (ohm)": {
+    "value": 7980,
+    "unit": "ohm",
+    "provenance": "Sec. 2, Fig. 2, shared MTJ stack.",
+    "kind": "reported"
+   },
+   "ReadMode": {
+    "value": "voltage",
+    "unit": null,
+    "provenance": "Sec. 4.1",
+    "kind": "reported"
+   },
+   "MinSenseVoltage (mV)": {
+    "value": 50,
+    "unit": "mV",
+    "provenance": "Sec. 4.1",
+    "kind": "reported"
+   },
+   "SetMode": {
+    "value": "current",
+    "unit": null,
+    "provenance": "Sec. 3.2",
+    "kind": "reported"
+   },
+   "SetCurrent (uA)": {
+    "value": 200,
+    "unit": "uA",
+    "provenance": "Sec. 2: 'that will require around 200 uA or more current (depending on the heavy metal technologies)'. LOWER BOUND, stated approximately. Symmetric with Reset (Sec. 4.1, SOT write is symmetric).",
+    "kind": "reported"
+   },
+   "SetVoltage (V)": {
+    "value": 1.0,
+    "unit": "V",
+    "provenance": "Table 2, supply rail.",
+    "kind": "reported"
+   },
+   "SetPulse (ns)": {
+    "value": 5,
+    "unit": "ns",
+    "provenance": "Sec. 4.1, 5 ns applied pulse (vs 107 ps measured write access time in Table 4).",
+    "kind": "reported"
+   },
+   "ResetMode": {
+    "value": "current",
+    "unit": null,
+    "provenance": "Sec. 3.2",
+    "kind": "reported"
+   },
+   "ResetCurrent (uA)": {
+    "value": 200,
+    "unit": "uA",
+    "provenance": "Sec. 2, same '~200 uA or more'. SYMMETRIC switching.",
+    "kind": "reported"
+   },
+   "ResetVoltage (V)": {
+    "value": 1.0,
+    "unit": "V",
+    "provenance": "Table 2, supply rail.",
+    "kind": "reported"
+   },
+   "ResetPulse (ns)": {
+    "value": 5,
+    "unit": "ns",
+    "provenance": "Sec. 4.1",
+    "kind": "reported"
+   },
+   "AccessType": {
+    "value": "CMOS",
+    "unit": null,
+    "provenance": "Sec. 3.2, two vertical GAA-FET drivers.",
+    "kind": "reported"
+   },
+   "AccessCMOSWidth (F)": {
+    "value": 3.0,
+    "unit": "F",
+    "provenance": "DERIVED, coarse: the paper states only that the write driver is large enough that the 'footprint size ... gets tripled' relative to the theta=1.4 cell (32 -> 96 F^2, a factor of exactly 3, Sec. 2 + Table 4). Attributing the whole 3x to the write transistor's lateral dimension gives ~3 F where the theta=1.4 cell used 1 F. NO TRANSISTOR WIDTH IS ACTUALLY STATED - this is an inference from the area ratio and should be replaced by a sized-transistor calculation if you need it.",
+    "kind": "derived"
+   }
+  },
+  "array_level_results": [],
+  "unmapped_parameters": [
+   "Write Access Time = 107 ps (Table 4).",
+   "Max. Power Dissipation = 210 uW (Table 4) - 2.9x the theta=1.4 cell.",
+   "Write Margin = 7.5 uA (Table 4).",
+   "This configuration was NOT carried through to the architectural (DESTINY) sweep: Sec. 2 says 'we have now considered theta_SHE = 1.4 for SOT-MTJ and have re-performed all the subsequent analysis'. Figs. 7-9 are theta=1.4 only."
+  ],
+  "warnings": [
+   "This is the realistic-material SOT cell and it is 6x the STT cell area (96 vs 16 F^2) and 3.4x the STT max power (210 vs 62.10 uW) in the SAME paper with the SAME MTJ. Any SOT-favourable conclusion in this paper rests on theta_SHE = 1.4.",
+   "Switching current is given as '~200 uA or more' - an approximate lower bound, not a measurement.",
+   "AccessCMOSWidth is inferred from an area ratio, not reported. Flagged as low confidence.",
+   "Heavy-metal series resistance not quantified; same caveat as the theta=1.4 entry."
+  ]
+ },
+ {
+  "id": "stt_hanjiang_aipadv2024_16nm",
+  "citation": "Shaopu Han, Yanfeng Jiang, \"Advanced hybrid MRAM based novel GPU cache system for graphic processing with high efficiency,\" AIP Advances, 14(1):015058, 2024 (presented at the 68th Annual Conference on Magnetism and Magnetic Materials)",
+  "doi": "10.1063/9.0000721",
+  "technology": "STT-MRAM",
+  "process_node_nm": 16,
+  "temperature_K": 300,
+  "cell_levels": "SLC",
+  "device_geometry": "Verbatim, Sec. II: 'As shown in Fig. 2, STT-MRAM has only one transistor in the memory cell. It has a higher level of integration than SOT-MRAM.' -> 1T1M. No MTJ diameter, free-layer thickness, oxide thickness or absolute footprint is given anywhere in the paper - only the normalised 54 F^2 cell area and 0.54 aspect ratio in Table I. At F = 16 nm, 54 F^2 = 54 x 256 nm^2 = 13824 nm^2 = 0.0138 um^2.",
+  "fields": {
+   "MemCellType": {
+    "value": "MRAM",
+    "unit": null,
+    "provenance": "Table I column header 'STT-MRAM'",
+    "kind": "reported"
+   },
+   "MemCellLevel": {
+    "value": "SLC",
+    "unit": null,
+    "provenance": "Table I gives a single On/Off resistance pair and a single Set/Reset pair - no intermediate levels or soft-set/soft-reset entries.",
+    "kind": "reported"
+   },
+   "ProcessNode": {
+    "value": 16,
+    "unit": "nm",
+    "provenance": "Table II, 'Process' = 16 nm. NOTE: Table I itself carries no node label; the 16 nm attribution comes from Table II's system configuration.",
+    "kind": "reported"
+   },
+   "Temperature (K)": {
+    "value": 300,
+    "unit": "K",
+    "provenance": "NOT STATED anywhere in the paper. Assumed 300 K (mandatory DESTINY key).",
+    "kind": "assumed"
+   },
+   "CellArea (F^2)": {
+    "value": 54,
+    "unit": "F^2",
+    "provenance": "Table I, row 'Cell Area (F2)', column 'STT-MRAM' = 54",
+    "kind": "reported"
+   },
+   "CellAspectRatio": {
+    "value": 0.54,
+    "unit": null,
+    "provenance": "Table I, row 'Cell Aspect Ratio' = 0.54. NOTE: this is exactly CellArea/100, as it is for all three columns (146->1.46, 54->0.54, 57->0.57), implying a fixed 10 F cell width assumption rather than an independently measured aspect ratio.",
+    "kind": "reported"
+   },
+   "ResistanceOn (ohm)": {
+    "value": 3000,
+    "unit": "ohm",
+    "provenance": "Table I, 'Resistance On (ohm)' = 3000 (R_parallel / low state)",
+    "kind": "reported"
+   },
+   "ResistanceOff (ohm)": {
+    "value": 6000,
+    "unit": "ohm",
+    "provenance": "Table I, 'Resistance Off (ohm)' = 6000 (R_antiparallel / high state)",
+    "kind": "reported"
+   },
+   "ReadMode": {
+    "value": "voltage",
+    "unit": null,
+    "provenance": "Table I gives only Read Power, no read current or read voltage. 'voltage' is the DESTINY default and is what a 30 uW / 3-6 kOhm operating point implies; NOT STATED by the paper.",
+    "kind": "assumed"
+   },
+   "ReadPower (uW)": {
+    "value": 30,
+    "unit": "uW",
+    "provenance": "Table I, 'Read Power (uW)' = 30",
+    "kind": "reported"
+   },
+   "ResetMode": {
+    "value": "current",
+    "unit": null,
+    "provenance": "Table I specifies Reset Current, not Reset Voltage -> current mode.",
+    "kind": "reported"
+   },
+   "ResetCurrent (uA)": {
+    "value": 12.5,
+    "unit": "uA",
+    "provenance": "Table I, 'Reset Current (uA)' = 12.5. DIRECTION MAPPING: DESTINY/NVSim convention, Reset = AP->P (high->low resistance).",
+    "kind": "reported"
+   },
+   "ResetPulse (ns)": {
+    "value": 7,
+    "unit": "ns",
+    "provenance": "Table I, 'Reset Pulse (ns)' = 7",
+    "kind": "reported"
+   },
+   "SetMode": {
+    "value": "current",
+    "unit": null,
+    "provenance": "Table I specifies Set Current -> current mode.",
+    "kind": "reported"
+   },
+   "SetCurrent (uA)": {
+    "value": 80,
+    "unit": "uA",
+    "provenance": "Table I, 'Set Current (uA)' = 80. Set = P->AP (low->high resistance). SWITCHING IS STRONGLY ASYMMETRIC: Set/Reset = 80/12.5 = 6.4x.",
+    "kind": "reported"
+   },
+   "SetPulse (ns)": {
+    "value": 7,
+    "unit": "ns",
+    "provenance": "Table I, 'Set Pulse (ns)' = 7. Pulse width is symmetric even though current is not.",
+    "kind": "reported"
+   },
+   "SetEnergy (pJ)": {
+    "value": null,
+    "unit": "pJ",
+    "provenance": "Not reported and not derivable - no switching voltage is given, only currents, so I*V*t cannot be formed.",
+    "kind": "reported"
+   },
+   "AccessType": {
+    "value": "CMOS",
+    "unit": null,
+    "provenance": "Table I row 'Access CMOS Width (F)'",
+    "kind": "reported"
+   },
+   "AccessCMOSWidth (F)": {
+    "value": 8,
+    "unit": "F",
+    "provenance": "Table I, 'Access CMOS Width (F)' = 8",
+    "kind": "reported"
+   }
+  },
+  "array_level_results": [
+   {
+    "capacity": "L1 256 kb / L2 1 Mb / external 16 Mb (config 'GPU2', all-STT)",
+    "tool": "modified GPGPU-Sim (cell parameters from Table I)",
+    "read_latency_ns": null,
+    "write_latency_ns": null,
+    "read_energy_pJ": null,
+    "write_energy_pJ": null,
+    "leakage_mW": null,
+    "area_mm2": null,
+    "provenance": "Table II (configuration) + Figs. 4-7 (results). ALL RESULTS ARE NORMALISED RATIOS IN BAR CHARTS - no absolute per-access latency, energy, leakage or area is reported anywhere. Recoverable statements only: GPU3 (SOT L1/L2 + STT external) average power = 51.12%/73.55% of GPU1(SRAM)/GPU2(STT); GPU3 leakage = 33.55%/66.85% of GPU1/GPU2; GPU3 access latency = 88.5% of GPU1; GPU2 average latency slightly HIGHER than GPU1."
+   }
+  ],
+  "unmapped_parameters": [
+   "Nothing else in Table I; the table is already expressed in DESTINY/NVSim .cell keys verbatim."
+  ],
+  "warnings": [
+   "TABLE I IS A .CELL FILE DUMP, NOT A CHARACTERISATION. Every row name is literally an NVSim/DESTINY key ('Cell Area (F2)', 'Access CMOS Width (F)', 'Reset Pulse (ns)'). No sourcing, no device stack, no simulation methodology for these numbers is given. The two cited sources for the SOT-vs-STT area comparison are refs [22] Seo & Kwon (IEICE Elex 17(21):20200314, 2020) and [23] Saha et al. (JMMM 529:167882, 2021).",
+   "ResetCurrent = 12.5 uA is implausibly low for a 16 nm STT-MTJ AP->P switch. Published 16-22 nm pMTJ critical currents at ~7 ns are typically 30-100 uA. Combined with SetCurrent = 80 uA this gives a 6.4x asymmetry, roughly 3x larger than the ~2x typically measured. Sanity-check before use.",
+   "Cell aspect ratio is not independent - it equals CellArea/100 for all three technologies, so it carries no real geometric information.",
+   "TMR is not stated; from the resistances it is exactly 100% (see derived note in the SOT entry for the arithmetic form). A round 100% suggests a chosen value rather than a measured one.",
+   "No temperature, read current, read voltage, read pulse, min sense voltage, set/reset energy, access-device voltage drop or access-device leakage is given.",
+   "Capacity units in Table II are written 'kb'/'Mb' (lowercase b = bits). A 256 kbit L1 and 1 Mbit L2 are plausible; but if the authors meant kB/MB the array-level context changes by 8x. The paper is ambiguous."
+  ]
+ },
+ {
+  "id": "sot_hanjiang_aipadv2024_16nm",
+  "citation": "Shaopu Han, Yanfeng Jiang, \"Advanced hybrid MRAM based novel GPU cache system for graphic processing with high efficiency,\" AIP Advances, 14(1):015058, 2024",
+  "doi": "10.1063/9.0000721",
+  "technology": "SOT-MRAM",
+  "process_node_nm": 16,
+  "temperature_K": 300,
+  "cell_levels": "SLC",
+  "device_geometry": "Verbatim, Sec. II: 'In contrast with STT-MRAM, the read and the write of SOT-MRAM requires the synthesis of two transistors to consider separate word and bit lines. Its peripheral circuitry will occupy a larger area. This gap becomes more and more obvious with the increasing of the storage capacity, much more than the 5% cell difference as shown in Table I.' -> 2T1M with separate read/write word and bit lines. Also 'SOT-MRAM has separate read and write paths, which can effectively reduce the mutual influence of storage and access operations and increase the lifetime.' Cell area 57 F^2 vs STT 54 F^2 = 5.6% larger. At F = 16 nm, 57 F^2 = 57 x 256 nm^2 = 14592 nm^2 = 0.0146 um^2. No MTJ diameter, heavy-metal dimensions or layer thicknesses are given.",
+  "fields": {
+   "MemCellType": {
+    "value": "MRAM",
+    "unit": null,
+    "provenance": "Table I column header 'SOT-MRAM'",
+    "kind": "reported"
+   },
+   "MemCellLevel": {
+    "value": "SLC",
+    "unit": null,
+    "provenance": "Single resistance pair, single set/reset pair in Table I.",
+    "kind": "reported"
+   },
+   "ProcessNode": {
+    "value": 16,
+    "unit": "nm",
+    "provenance": "Table II, 'Process' = 16 nm",
+    "kind": "reported"
+   },
+   "Temperature (K)": {
+    "value": 300,
+    "unit": "K",
+    "provenance": "Not stated; assumed 300 K (mandatory key).",
+    "kind": "assumed"
+   },
+   "CellArea (F^2)": {
+    "value": 57,
+    "unit": "F^2",
+    "provenance": "Table I, 'Cell Area (F2)', column 'SOT-MRAM' = 57. NOTE: reported as 57, not 57.5.",
+    "kind": "reported"
+   },
+   "CellAspectRatio": {
+    "value": 0.57,
+    "unit": null,
+    "provenance": "Table I, 'Cell Aspect Ratio' = 0.57 (again exactly CellArea/100).",
+    "kind": "reported"
+   },
+   "ResistanceOn (ohm)": {
+    "value": 165000,
+    "unit": "ohm",
+    "provenance": "Table I, 'Resistance On (ohm)' = 165000",
+    "kind": "reported"
+   },
+   "ResistanceOff (ohm)": {
+    "value": 324000,
+    "unit": "ohm",
+    "provenance": "Table I, 'Resistance Off (ohm)' = 324000",
+    "kind": "reported"
+   },
+   "TMR (%)": {
+    "value": 96.36,
+    "unit": "%",
+    "provenance": "DERIVED (not a DESTINY key, given for cross-checking): TMR = (R_AP - R_P)/R_P x 100 = (324000 - 165000)/165000 x 100 = 159000/165000 x 100 = 96.36%. For comparison the STT column gives (6000-3000)/3000 = 100.0%.",
+    "kind": "derived"
+   },
+   "ReadMode": {
+    "value": "voltage",
+    "unit": null,
+    "provenance": "Table I gives only Read Power. 'voltage' is the DESTINY default; NOT STATED by the paper.",
+    "kind": "assumed"
+   },
+   "ReadPower (uW)": {
+    "value": 9.26,
+    "unit": "uW",
+    "provenance": "Table I, 'Read Power (uW)' = 9.26",
+    "kind": "reported"
+   },
+   "ResetMode": {
+    "value": "current",
+    "unit": null,
+    "provenance": "Table I specifies Reset Current -> current mode.",
+    "kind": "reported"
+   },
+   "ResetCurrent (uA)": {
+    "value": 54.02,
+    "unit": "uA",
+    "provenance": "Table I, 'Reset Current (uA)' = 54.02. Reset = AP->P. IDENTICAL to Set Current -> switching is SYMMETRIC, as expected for SOT.",
+    "kind": "reported"
+   },
+   "ResetPulse (ns)": {
+    "value": 0.1,
+    "unit": "ns",
+    "provenance": "Table I, 'Reset Pulse (ns)' = 0.1 (= 100 ps)",
+    "kind": "reported"
+   },
+   "SetMode": {
+    "value": "current",
+    "unit": null,
+    "provenance": "Table I specifies Set Current -> current mode.",
+    "kind": "reported"
+   },
+   "SetCurrent (uA)": {
+    "value": 54.02,
+    "unit": "uA",
+    "provenance": "Table I, 'Set Current (uA)' = 54.02. Set = P->AP. Symmetric with Reset.",
+    "kind": "reported"
+   },
+   "SetPulse (ns)": {
+    "value": 0.1,
+    "unit": "ns",
+    "provenance": "Table I, 'Set Pulse (ns)' = 0.1 (= 100 ps)",
+    "kind": "reported"
+   },
+   "AccessType": {
+    "value": "CMOS",
+    "unit": null,
+    "provenance": "Table I row 'Access CMOS Width (F)'",
+    "kind": "reported"
+   },
+   "AccessCMOSWidth (F)": {
+    "value": 8.5,
+    "unit": "F",
+    "provenance": "Table I, 'Access CMOS Width (F)' = 8.5. NOTE: the paper states the cell has TWO transistors but gives only ONE width. It is not stated whether 8.5 F is per transistor or the sum.",
+    "kind": "reported"
+   }
+  },
+  "array_level_results": [
+   {
+    "capacity": "L1 256 kb / L2 1 Mb SOT + external 16 Mb STT (config 'GPU3', the proposed hybrid)",
+    "tool": "modified GPGPU-Sim (cell parameters from Table I)",
+    "read_latency_ns": null,
+    "write_latency_ns": null,
+    "read_energy_pJ": null,
+    "write_energy_pJ": null,
+    "leakage_mW": null,
+    "area_mm2": null,
+    "provenance": "Table II + Figs. 4-7. Normalised ratios only: dynamic power 'up to 50.15% optimization' vs SRAM, average 51.12%/73.55% of GPU1/GPU2; leakage 33.55%/66.85% of GPU1/GPU2; access latency 88.5% of GPU1; training throughput 78.4% of GPU1's time and 48.6% of its energy (up to 28% speed / 56% energy optimisation); dataset processing 83.2% time and 57.4% energy (up to 26% / 53%). NO ABSOLUTE VALUES."
+   }
+  ],
+  "unmapped_parameters": [
+   "Nothing else in Table I."
+  ],
+  "warnings": [
+   "PHYSICALLY SUSPECT CELL AREA vs TRANSISTOR COUNT. The paper says the SOT cell needs TWO transistors while the STT cell needs one, yet lists only a 5.6% area penalty (57 vs 54 F^2) and a LARGER access width (8.5 F vs 8 F). Taking AspectRatio at face value (57 F^2 at AR 0.57 -> ~10 F x 5.7 F), two transistors of 8.5 F width cannot be laid out side by side in a 10 F pitch. The paper half-admits this in Sec. II ('much more than the 5% cell difference as shown in Table I'), attributing the real gap to peripheral circuitry - but the .cell file itself still carries only 5.6%. THIS IS THE SINGLE MOST LIKELY SOURCE OF AN OPTIMISTIC SOT ARRAY MODEL.",
+   "SUB-100 ps PULSE BESIDE MULTI-ns SYSTEM TIMES. Set/Reset pulse of 0.1 ns is quoted alongside a 16 Mb external cache and 1500-2000 MHz core clock (0.5-0.67 ns period). A 100 ps write pulse is at the very edge of reported SOT precessional switching and leaves no margin for bitline settling; DESTINY will happily produce a sub-ns write latency from it that no real array achieves.",
+   "R_on = 165 kOhm is 55x the STT R_on (3 kOhm) in the same table, with no explanation. A 165 kOhm parallel-state MTJ at 16 nm implies an enormous RA product and will make read latency RC-limited; it is inconsistent with the very low 9.26 uW read power (9.26 uW into 165 kOhm implies V = sqrt(P*R) = 1.24 V across the MTJ, above any 16 nm rail). THESE THREE NUMBERS (R_on, R_off, ReadPower) ARE NOT MUTUALLY CONSISTENT.",
+   "No temperature, TMR, read current/voltage/pulse, min sense voltage, set/reset energy, or access-device drop/leakage.",
+   "Cell aspect ratio again equals CellArea/100 and is not independent information."
+  ]
+ },
+ {
+  "id": "sram_hanjiang_aipadv2024_16nm",
+  "citation": "Shaopu Han, Yanfeng Jiang, \"Advanced hybrid MRAM based novel GPU cache system for graphic processing with high efficiency,\" AIP Advances, 14(1):015058, 2024",
+  "doi": "10.1063/9.0000721",
+  "technology": "SRAM (6T baseline)",
+  "process_node_nm": 16,
+  "temperature_K": 300,
+  "cell_levels": "SLC",
+  "device_geometry": "No transistor count, no NMOS/PMOS widths, no layout given. Only 'Cell Area (F2) = 146' and 'Access CMOS Width (F) = 1.31' from Table I. Sec. IV context: SRAM is the GPU1 baseline. At F = 16 nm, 146 F^2 = 146 x 256 nm^2 = 37376 nm^2 = 0.0374 um^2, which is in the right ballpark for a 16 nm high-density 6T bitcell.",
+  "fields": {
+   "MemCellType": {
+    "value": "SRAM",
+    "unit": null,
+    "provenance": "Table I column header 'SRAM'",
+    "kind": "reported"
+   },
+   "ProcessNode": {
+    "value": 16,
+    "unit": "nm",
+    "provenance": "Table II, 'Process' = 16 nm",
+    "kind": "reported"
+   },
+   "Temperature (K)": {
+    "value": 300,
+    "unit": "K",
+    "provenance": "Not stated; assumed 300 K (mandatory key).",
+    "kind": "assumed"
+   },
+   "CellArea (F^2)": {
+    "value": 146,
+    "unit": "F^2",
+    "provenance": "Table I, 'Cell Area (F2)', column 'SRAM' = 146",
+    "kind": "reported"
+   },
+   "CellAspectRatio": {
+    "value": 1.46,
+    "unit": null,
+    "provenance": "Table I = 1.46 (again exactly CellArea/100).",
+    "kind": "reported"
+   },
+   "ReadPower (uW)": {
+    "value": 135,
+    "unit": "uW",
+    "provenance": "Table I, 'Read Power (uW)' = 135",
+    "kind": "reported"
+   },
+   "AccessCMOSWidth (F)": {
+    "value": 1.31,
+    "unit": "F",
+    "provenance": "Table I, 'Access CMOS Width (F)' = 1.31. NOTE: DESTINY expects -SRAMCellNMOSWidth and -SRAMCellPMOSWidth for SRAM, not -AccessCMOSWidth. Neither is given, so an SRAM .cell cannot be completed from this table.",
+    "kind": "reported"
+   }
+  },
+  "array_level_results": [
+   {
+    "capacity": "L1 256 kb / L2 1 Mb / external 16 Mb (config 'GPU1', all-SRAM baseline)",
+    "tool": "modified GPGPU-Sim",
+    "read_latency_ns": null,
+    "write_latency_ns": null,
+    "read_energy_pJ": null,
+    "write_energy_pJ": null,
+    "leakage_mW": null,
+    "area_mm2": null,
+    "provenance": "Table II + Figs. 4-7. All results normalised to this baseline; no absolutes."
+   }
+  ],
+  "unmapped_parameters": [
+   "Table I also lists for SRAM: Resistance On = 1000 ohm, Resistance Off = 1000000 ohm, Reset Current = 600 uA, Reset Pulse = 50 ns, Set Current = 75 uA, Set Pulse = 400 ns. These are NOT SRAM parameters - see warnings."
+  ],
+  "warnings": [
+   "THE SRAM COLUMN OF TABLE I IS NOT A VALID SRAM CELL SPECIFICATION. 'Resistance On = 1000 ohm / Resistance Off = 1000000 ohm', 'Reset Pulse = 50 ns' and 'Set Pulse = 400 ns' are meaningless for a 16 nm 6T SRAM (which writes in tens of picoseconds). These rows look like leftovers from an unedited NVSim resistive-memory cell template - most plausibly a PCRAM/memristor template, given 1 kOhm / 1 MOhm and 50 ns / 400 ns. DO NOT PORT THIS COLUMN. Build the SRAM baseline from DESTINY's own 16 nm SRAM cell instead.",
+   "Because the SRAM baseline is mis-specified, every SRAM-relative ratio in Figs. 4-7 (the paper's entire results section) rests on a questionable reference point. Treat the 66.45% leakage / 56% energy / 28% speed headline claims as unvalidated.",
+   "No SRAMCellNMOSWidth / SRAMCellPMOSWidth, no read voltage, no read pulse, no min sense voltage."
+  ]
+ },
+ {
+  "id": "stt_zhang2021_45nm",
+  "citation": "Zitong Zhang, Wenjie Wang, Pingping Yu, Yanfeng Jiang, \"Cache performance of NV-STT-MRAM with scale effect and comparison with SRAM\", International Journal of Electronics, 2021",
+  "doi": "10.1080/00207217.2021.1908630",
+  "technology": "STT-MRAM",
+  "process_node_nm": 45,
+  "temperature_K": null,
+  "cell_levels": "SLC",
+  "device_geometry": "1T1MTJ. Table 1 gives cell area 10 F^2 at aspect ratio 1.0 with a 6 F access transistor. Note the same tension as DESTINY's shipped cell: a 6 F wide device does not fit inside 10 F^2, so treat the area as the MTJ stack footprint rather than the full bit-cell. The paper's own Tables 3-4 sweep area over 10-30 F^2 and aspect ratio over 0.3-2.0, which is the study this project mirrors for SOT.",
+  "fields": {
+   "MemCellType": {
+    "value": "MRAM",
+    "unit": null,
+    "provenance": "Table 1",
+    "kind": "reported"
+   },
+   "ProcessNode (nm)": {
+    "value": 45,
+    "unit": "nm",
+    "provenance": "Table 1 caption",
+    "kind": "reported"
+   },
+   "CellArea (F^2)": {
+    "value": 10,
+    "unit": "F^2",
+    "provenance": "Table 1",
+    "kind": "reported"
+   },
+   "CellAspectRatio": {
+    "value": 1.0,
+    "unit": null,
+    "provenance": "Table 1",
+    "kind": "reported"
+   },
+   "ResistanceOn (ohm)": {
+    "value": 7100,
+    "unit": "ohm",
+    "provenance": "Table 1, Rp",
+    "kind": "reported"
+   },
+   "ResistanceOff (ohm)": {
+    "value": 15600,
+    "unit": "ohm",
+    "provenance": "Table 1, Rap. TMR = 120%, consistent with the text's 'TMR set to 100%' only approximately.",
+    "kind": "reported"
+   },
+   "ReadMode": {
+    "value": "voltage",
+    "unit": null,
+    "provenance": "DESTINY default; the paper does not state a sensing scheme",
+    "kind": "assumed"
+   },
+   "ReadCurrent (uA)": {
+    "value": 20,
+    "unit": "uA",
+    "provenance": "Table 1",
+    "kind": "reported"
+   },
+   "MinSenseVoltage (mV)": {
+    "value": 25,
+    "unit": "mV",
+    "provenance": "DESTINY sample value",
+    "kind": "assumed"
+   },
+   "ResetMode": {
+    "value": "current",
+    "unit": null,
+    "provenance": "current-driven MTJ",
+    "kind": "derived"
+   },
+   "ResetCurrent (uA)": {
+    "value": 29,
+    "unit": "uA",
+    "provenance": "Table 1, write current",
+    "kind": "reported"
+   },
+   "ResetPulse (ns)": {
+    "value": 10,
+    "unit": "ns",
+    "provenance": "Table 1, write pulse",
+    "kind": "reported"
+   },
+   "SetMode": {
+    "value": "current",
+    "unit": null,
+    "provenance": "current-driven MTJ",
+    "kind": "derived"
+   },
+   "SetCurrent (uA)": {
+    "value": 29,
+    "unit": "uA",
+    "provenance": "Table 1",
+    "kind": "reported"
+   },
+   "SetPulse (ns)": {
+    "value": 10,
+    "unit": "ns",
+    "provenance": "Table 1",
+    "kind": "reported"
+   },
+   "AccessType": {
+    "value": "CMOS",
+    "unit": null,
+    "provenance": "Table 1 gives an access CMOS width",
+    "kind": "reported"
+   },
+   "AccessCMOSWidth (F)": {
+    "value": 6.0,
+    "unit": "F",
+    "provenance": "Table 1",
+    "kind": "reported"
+   },
+   "VoltageDropAccessDevice (V)": {
+    "value": 0.15,
+    "unit": "V",
+    "provenance": "DESTINY sample value",
+    "kind": "assumed"
+   }
+  },
+  "array_level_results": {
+   "tool": "DESTINY",
+   "note": "Table 3: write latency vs cell area {10,15,20,30} F^2 at AR 1.0, 1-32 MB. Table 4: vs aspect ratio {0.3,0.5,1.0,2.0} at 10 F^2. Tables 5-6: unified vs targeted configuration, % change in write latency and leakage. Fig. 6: 65-22 nm scaling roadmap, HP. These are the validation targets for stage1_destiny/dse.py --geometry and --scale.",
+   "example": "1 MB, 10 F^2, AR 1.0 -> write latency 10.9372 ns"
+  },
+  "warnings": [
+   "The paper reports write latency to four decimal places across a 3x cell-area sweep while the value moves by under 2%. Treat their per-cell-area differences as noise, not signal; the reportable effect in their own data is the LEAKAGE change in Tables 5-6 (up to 42.1%), not the latency."
+  ]
+ }
+]

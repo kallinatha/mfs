@@ -1,0 +1,48 @@
+// SOT-MRAM, calibrated to published NVSim cell parameters.
+//
+// Source: I. Singh, B. Raj, M. Khosla, B. K. Kaushik, "Comparative Analysis of
+// Spintronic Memories for Low Power on-chip Caches", SPIN 10(4):2050027, World
+// Scientific, 2020. DOI 10.1142/S2010324720500277. Table 2, 22 nm, 300 K.
+//
+// Why this cell exists. The other two SOT cells here (12 F^2 and 24 F^2) carry
+// the DESTINY v2 sample electrical parameters with the geometry varied by hand;
+// their absolute area is an assumption, and a reviewer is entitled to say so.
+// This one is transcribed from a published, peer-reviewed NVSim parameter set
+// and changes the conclusion, so it must be run and reported.
+//
+// What it changes. Singh et al. give SOT-MRAM 57.5 F^2 against STT-MRAM's
+// 54 F^2 - SOT is *larger*, not smaller. That ordering is physically expected:
+// SOT is a three-terminal device and needs a wider access transistor (8.5 F
+// against STT's 8 F, Table 2). Any claim that SOT-MRAM wins on cell area does
+// not survive this cell file. What does survive, and decisively, is the write
+// path: 1 ns write pulse against STT's 10 ns, 54.02 uA write current against
+// 80 uA, and 33 pJ write access energy against 573 pJ (their Table 1, 512 kB).
+// Position the paper on write latency and write energy, not on area or leakage.
+//
+// Read and write share one current value in Table 2 (54.02 uA) because SOT has
+// independent read and write paths; the table gives no separate read pulse, so
+// the DESTINY sample read pulse is retained and flagged below.
+
+-MemCellType: MRAM
+-CellArea (F^2): 57.5
+-CellAspectRatio: 0.57
+-ResistanceOn (ohm): 16500
+-ResistanceOff (ohm): 32400
+-ReadMode: voltage
+-ReadCurrent (uA): 12.12          // SOLVED, not from Singh et al. Their 54.02 uA at R_on 16500 ohm
+                                // biases the junction at 0.891 V and DESTINY finds no valid
+                                // precharge voltage. This is the largest current under a
+                                // 0.2 V read-disturb ceiling; sense margin 193 mV.
+-ReadPulse (ns): 0.221          // NOT from Singh et al.; DESTINY sample value
+-MinSenseVoltage (mV): 25
+-ResetMode: current
+-ResetCurrent (uA): 54.02
+-ResetPulse (ns): 1.0
+-ResetEnergy (pJ): 0.1          // NOT from Singh et al.; DESTINY sample value
+-SetMode: current
+-SetCurrent (uA): 54.02
+-SetPulse (ns): 1.0
+-SetEnergy (pJ): 0.1            // NOT from Singh et al.; DESTINY sample value
+-AccessType: CMOS
+-VoltageDropAccessDevice (V): 0.15
+-AccessCMOSWidth (F): 8.5

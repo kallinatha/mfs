@@ -1,0 +1,6 @@
+tech,capacity_MB,node_nm,roadmap,opt_target,assoc,access,status,runtime_s,area_mm2,hit_latency_ns,miss_latency_ns,write_latency_ns,hit_energy_nJ,miss_energy_nJ,write_energy_nJ,leakage_mW
+SRAM,1,45,HP,WriteEDP,8,Sequential,ok,119.0,4.15065,0.579157,0.160895,0.38023,0.480088,0.0330901,0.477579,1740.15
+STT-MRAM,1,45,HP,WriteEDP,8,Sequential,ok,118.9,6.9112,2.85771,1.46244,8.72864,1.1885,0.121203,1.08968,5599.22
+SOT-12/1,1,45,HP,WriteEDP,8,Sequential,ok,111.0,1.33576,0.803894,0.362686,0.727006,0.255606,0.0254508,0.329785,333.378
+SOT-24/2,1,45,HP,WriteEDP,8,Sequential,ok,112.7,2.13683,0.81953,0.364841,0.699708,0.339483,0.0433192,0.415793,846.157
+PCM,1,45,HP,WriteEDP,8,Sequential,ok,104.0,41.029,23.8145,12.3404,301.127,2.72411,1.35383,102.791,10384.1

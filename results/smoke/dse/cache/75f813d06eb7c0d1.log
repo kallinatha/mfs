@@ -1,0 +1,21 @@
+User-defined configuration file (/home/claude/mfs2/results/smoke/dse/cache/75f813d06eb7c0d1.cfg) is loaded
+initial capacity in bytes 1048576
+
+====================
+DESIGN SPECIFICATION
+====================
+Design Target: Cache
+Capacity   : 1MB
+Cache Line Size: 64Bytes
+Cache Associativity: 16 Ways
+
+Full design space exploration ... might take hours and will produce a csv
+If you are interested in optimizing for a single metric only, please change -OptimizationTarget in *cfg file, for example 
+ -OptimizationTarget: WriteEDP
+Using cell file: /home/claude/mfs2/stage1_destiny/cells/sot_24_2.cell
+initial capacity in bytes 1048576
+Pruning done
+numSolutions = 48067 / numDesigns = 15604974
+
+/home/claude/mfs2/results/smoke/dse/cache/75f813d06eb7c0d1.csv generated successfully!
+The results are pruned

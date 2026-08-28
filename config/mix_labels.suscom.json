@@ -1,0 +1,26 @@
+{
+  "_comment": [
+    "Canonical mix labels for the SUSCOM manuscript (Table 9).",
+    "A mix is identified by the SET of benchmarks it contains, not by filename",
+    "order, so exported traces may name their constituents in any sequence.",
+    "Add or edit entries here; no label logic lives in code."
+  ],
+  "benchmark_vocabulary": [
+    "cactuBSSN17", "libquantum", "xalancbmk", "GemsFDTD", "leslie3d",
+    "omnetpp", "bwaves17", "soplex", "zeusmp", "hmmer", "dealII",
+    "roms17", "gobmk", "astar", "bzip2", "milc", "mcf17", "lbm17",
+    "xz17", "wrf"
+  ],
+  "mixes": {
+    "MIX1":  ["bzip2", "gobmk", "zeusmp", "dealII"],
+    "MIX2":  ["bzip2", "roms17", "wrf", "hmmer"],
+    "MIX3":  ["soplex", "hmmer", "cactuBSSN17", "zeusmp"],
+    "MIX4":  ["astar", "omnetpp", "milc", "libquantum"],
+    "MIX5":  ["leslie3d", "mcf17", "xalancbmk", "bwaves17"],
+    "MIX6":  ["xz17", "wrf", "GemsFDTD", "lbm17"],
+    "MIX7":  ["dealII", "xalancbmk", "libquantum", "cactuBSSN17"],
+    "MIX8":  ["mcf17", "milc", "lbm17", "gobmk"],
+    "MIX9":  ["astar", "soplex", "bwaves17", "xz17"],
+    "MIX10": ["leslie3d", "omnetpp", "roms17", "GemsFDTD"]
+  }
+}

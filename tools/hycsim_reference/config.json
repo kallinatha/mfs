@@ -1,0 +1,27 @@
+{
+  "general":{
+    "size":"16MB",
+    "nvm_ways":12,
+    "sram_ways":4,
+    "blocksize":64,
+    "traces_dir":"traces_dir/",
+    "fault_map_dir":"fault_map_dir/",
+    "trace_out_dir":"trace_out_dir/"
+  },
+  "BaseHybrid":{
+    "suffix":"BaseHybrid",
+    "disabling":"FrameDisabling"
+  },
+  "LHybrid":{
+    "suffix":"LHybrid",
+    "disabling":"FrameDisabling"
+  },
+  "CMPHybrid":{
+    "suffix":"CMPHybrid",
+    "disabling":"ByteDisabling"
+  },
+  "CMPLHybrid":{
+    "suffix":"CMPLHybrid",
+    "disabling":"ByteDisabling"
+  }
+}

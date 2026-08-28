@@ -1,0 +1,158 @@
+{
+  "sources": [
+    "/home/claude/mfs2/results/sample/hycsim/lifetime_all_mixes.csv"
+  ],
+  "n_rows": 7,
+  "proxy_validation": {
+    "n": 5,
+    "spearman_rho": 0.9,
+    "kendall_tau": 1.0,
+    "median_abs_pct_error": 89.1113769734044,
+    "max_abs_pct_error": 11050261335.665178,
+    "n_pairs": 10,
+    "n_reversals": 0,
+    "reversal_rate": 0.0,
+    "reversals": [],
+    "verdict": "proxy reverses rankings - report direct lifetime instead"
+  },
+  "aggregate": [
+    {
+      "scheme": "lru-hybrid",
+      "arena": "hybrid",
+      "n": 1,
+      "rli_direct_gm": 0.0,
+      "ci_lo": NaN,
+      "ci_hi": NaN,
+      "max_write_mean": 8.0
+    },
+    {
+      "scheme": "psc",
+      "arena": "hybrid",
+      "n": 1,
+      "rli_direct_gm": 6.999999999999998,
+      "ci_lo": NaN,
+      "ci_hi": NaN,
+      "max_write_mean": 1.0
+    },
+    {
+      "scheme": "psc-vro",
+      "arena": "hybrid",
+      "n": 1,
+      "rli_direct_gm": 3.0,
+      "ci_lo": NaN,
+      "ci_hi": NaN,
+      "max_write_mean": 2.0
+    },
+    {
+      "scheme": "unmanaged",
+      "arena": "all-nvm",
+      "n": 1,
+      "rli_direct_gm": 0.0,
+      "ci_lo": NaN,
+      "ci_hi": NaN,
+      "max_write_mean": 8.0
+    },
+    {
+      "scheme": "unmanaged",
+      "arena": "hybrid",
+      "n": 1,
+      "rli_direct_gm": 0.0,
+      "ci_lo": NaN,
+      "ci_hi": NaN,
+      "max_write_mean": 8.0
+    },
+    {
+      "scheme": "vro",
+      "arena": "all-nvm",
+      "n": 1,
+      "rli_direct_gm": 0.0,
+      "ci_lo": NaN,
+      "ci_hi": NaN,
+      "max_write_mean": 8.0
+    },
+    {
+      "scheme": "vro",
+      "arena": "hybrid",
+      "n": 1,
+      "rli_direct_gm": 0.0,
+      "ci_lo": NaN,
+      "ci_hi": NaN,
+      "max_write_mean": 8.0
+    }
+  ],
+  "interaction": {
+    "PSC x VRO": {
+      "n": 1,
+      "interaction_log": -0.6931471805599452,
+      "ci_lo": -0.6931471805599452,
+      "ci_hi": -0.6931471805599452,
+      "interaction_pct": -0.4999999999999999,
+      "verdict": "sub-multiplicative"
+    }
+  },
+  "lifetime_years": [
+    {
+      "scheme": "lru-hybrid",
+      "arena": "hybrid",
+      "source": "lifetime_all_mixes.csv",
+      "E=1e+12": 0.5149314269779705,
+      "E=1e+14": 51.49314269779705,
+      "E=1e+15": 514.9314269779704,
+      "E=1e+18": 514931.42697797046
+    },
+    {
+      "scheme": "psc",
+      "arena": "hybrid",
+      "source": "lifetime_all_mixes.csv",
+      "E=1e+12": 4.119451415823764,
+      "E=1e+14": 411.9451415823764,
+      "E=1e+15": 4119.451415823763,
+      "E=1e+18": 4119451.4158237637
+    },
+    {
+      "scheme": "psc-vro",
+      "arena": "hybrid",
+      "source": "lifetime_all_mixes.csv",
+      "E=1e+12": 2.059725707911882,
+      "E=1e+14": 205.9725707911882,
+      "E=1e+15": 2059.7257079118817,
+      "E=1e+18": 2059725.7079118819
+    },
+    {
+      "scheme": "unmanaged",
+      "arena": "all-nvm",
+      "source": "lifetime_all_mixes.csv",
+      "E=1e+12": 0.5149314269779705,
+      "E=1e+14": 51.49314269779705,
+      "E=1e+15": 514.9314269779704,
+      "E=1e+18": 514931.42697797046
+    },
+    {
+      "scheme": "unmanaged",
+      "arena": "hybrid",
+      "source": "lifetime_all_mixes.csv",
+      "E=1e+12": 0.5149314269779705,
+      "E=1e+14": 51.49314269779705,
+      "E=1e+15": 514.9314269779704,
+      "E=1e+18": 514931.42697797046
+    },
+    {
+      "scheme": "vro",
+      "arena": "all-nvm",
+      "source": "lifetime_all_mixes.csv",
+      "E=1e+12": 0.5149314269779705,
+      "E=1e+14": 51.49314269779705,
+      "E=1e+15": 514.9314269779704,
+      "E=1e+18": 514931.42697797046
+    },
+    {
+      "scheme": "vro",
+      "arena": "hybrid",
+      "source": "lifetime_all_mixes.csv",
+      "E=1e+12": 0.5149314269779705,
+      "E=1e+14": 51.49314269779705,
+      "E=1e+15": 514.9314269779704,
+      "E=1e+18": 514931.42697797046
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+// SOT-MRAM, relaxed geometry (CA=24 F^2, AR=2.0)
+// Electrical parameters unchanged from DESTINY v2 shipped sample_SOTRAM.cell
+-MemCellType: MRAM
+-CellArea (F^2): 24
+-CellAspectRatio: 2.0
+-ResistanceOn (ohm): 5000
+-ResistanceOff (ohm): 10000
+-ReadMode: voltage
+-ReadCurrent (uA): 25
+-ReadPulse (ns): 0.221
+-MinSenseVoltage (mV): 25
+-ResetMode: current
+-ResetCurrent (uA): 100
+-ResetPulse (ns): 0.266
+-ResetEnergy (pJ): 0.1
+-SetMode: current
+-SetCurrent (uA): 100
+-SetPulse (ns): 0.266
+-SetEnergy (pJ): 0.1
+-AccessType: CMOS
+-VoltageDropAccessDevice (V): 0.15
+-AccessCMOSWidth (F): 2.5

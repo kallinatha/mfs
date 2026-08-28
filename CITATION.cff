@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+message: "If you use this framework, please cite the paper below."
+type: software
+title: "MFS: a Multi-Factor Scaling and lifetime-extension framework for endurance-limited NVM caches"
+authors:
+  - family-names: "H D"
+    given-names: "Kallinatha"
+    affiliation: "National Institute of Technology Karnataka; Siddaganga Institute of Technology"
+  - family-names: "Talawar"
+    given-names: "Basavaraj"
+    affiliation: "National Institute of Technology Karnataka"
+repository-code: "https://github.com/REPLACE_WITH_OWNER/mfs"
+license: MIT
+preferred-citation:
+  type: article
+  title: "A Multi-Factor Scaling and Lifetime-Extension Framework for Endurance-Limited NVM Caches: An SOT-MRAM Case Study"
+  authors:
+    - family-names: "H D"
+      given-names: "Kallinatha"
+    - family-names: "Talawar"
+      given-names: "Basavaraj"
+  journal: "Sustainable Computing: Informatics and Systems"
+  year: 2026
+  status: "in revision"
+  notes: >
+    Manuscript SUSCOM-D-24-01370. Update this entry with the final volume,
+    pages, and DOI once the paper is accepted and published; until then this
+    citation is provisional.
