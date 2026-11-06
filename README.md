@@ -3,7 +3,7 @@
 Reference implementation for **"A Multi-Factor Scaling and Lifetime-Extension
 Framework for Endurance-Limited NVM Caches: An SOT-MRAM Case Study"**
 (Kallinatha H D, Basavaraj Talawar; *Sustainable Computing: Informatics and
-Systems*, in revision). Five pipeline stages, four simulators, one script —
+Systems*, Accepted). Five pipeline stages, four simulators, one script —
 and it is not SOT-MRAM-specific: the orchestration loop, the diagnostic
 metrics, and the PSC/PSC-Soft placement rules take a cell's measured
 behaviour as input and can be pointed at a different NVM cell, a different
@@ -42,7 +42,7 @@ and ChampSim are fetched by `setup.sh` — they are git repositories with
 submodules and vendoring them would be enormous and stale within a month. See
 `tools/README.md`.
 
-Traces stay where they are; nothing is copied.
+Traces are too large for the repo.
 
 ## Why the results here are defensible
 
